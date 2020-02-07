@@ -62,9 +62,13 @@ class Network:
 
             # A lane section is the smallest part that can be converted at once
             for lane_section in road.lanes.lane_sections:
+                speed = {}
+                for t in road.types:
+                    if(t.speed != None):
+                        speed = t.speed
 
                 parametric_lane_groups = OpenDriveConverter.lane_section_to_parametric_lanes(
-                    lane_section, reference_border
+                    lane_section, reference_border, speed
                 )
 
                 self._planes.extend(parametric_lane_groups)

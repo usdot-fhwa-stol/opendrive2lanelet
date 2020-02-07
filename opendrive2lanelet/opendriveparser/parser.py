@@ -466,7 +466,7 @@ def parse_opendrive_road(opendrive, road):
     road_lateral_profile = road.find("lateralProfile")
     if road_lateral_profile is not None:
         parse_opendrive_road_lateral_profile(newRoad, road_lateral_profile)
-
+    
     # Lanes
     lanes = road.find("lanes")
 
