@@ -31,6 +31,7 @@ class ParametricLaneGroup:
         inner_neighbour=None,
         inner_neighbour_same_direction=True,
         outer_neighbour=None,
+        speed=np.infty
     ):
 
         self._geo_lengths = [np.array([0.0])]
@@ -39,6 +40,7 @@ class ParametricLaneGroup:
         self.inner_neighbour = inner_neighbour
         self.inner_neighbour_same_direction = inner_neighbour_same_direction
         self.outer_neighbour = outer_neighbour
+        self.speed = speed
 
         if parametric_lanes is not None:
             if isinstance(parametric_lanes, list):
@@ -162,10 +164,16 @@ class ParametricLaneGroup:
         center_vertices = np.array(
             [(l + r) / 2 for (l, r) in zip(left_vertices, right_vertices)]
         )
-
-        lanelet = ConversionLanelet(
-            self, left_vertices, center_vertices, right_vertices, self.id_
-        )
+        
+        # speed_limit
+        if(self.speed != {}):
+            lanelet = ConversionLanelet(
+                self, left_vertices, center_vertices, right_vertices, self.id_, speed_limit=int(self.speed._max)
+            )
+        else:
+            lanelet = ConversionLanelet(
+                self, left_vertices, center_vertices, right_vertices, self.id_
+            )
 
         # Adjacent lanes
         self._set_adjacent_lanes(lanelet)

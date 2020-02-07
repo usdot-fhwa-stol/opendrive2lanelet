@@ -72,7 +72,7 @@ class OpenDriveConverter:
 
     @staticmethod
     def lane_section_to_parametric_lanes(
-        lane_section, reference_border
+        lane_section, reference_border, speed
     ) -> List[ParametricLaneGroup]:
         """Convert a whole lane section into a list of ParametricLane objects.
 
@@ -83,7 +83,6 @@ class OpenDriveConverter:
         Returns:
 
         """
-
         plane_groups = []
 
         for side in ["right", "left"]:
@@ -122,6 +121,7 @@ class OpenDriveConverter:
                     inner_neighbour=inner_neighbour_id,
                     inner_neighbour_same_direction=inner_neighbour_same_dir,
                     outer_neighbour=outer_neighbour_id,
+                    speed=speed
                 )
 
                 # Create new lane for each width segment
