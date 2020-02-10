@@ -12,10 +12,14 @@ We provide the code for an OpenDRIVE ([www.opendrive.org](http://www.opendrive.o
 ### Installing from source
 
 ```bash
-git clone https://gitlab.lrz.de/tum-cps/opendrive2lanelet.git
+git clone https://gitlab.lrz.de/cps/opendrive2lanelet.git
 cd opendrive2lanelet
 python setup.py install
 ```
+
+Public source (only released versions): https://gitlab.lrz.de/tum-cps/opendrive2lanelet.git
+
+
 
 ### Using pip:
 
@@ -120,5 +124,6 @@ for example.
 
 ## Authors
 
-Benjamin Orthen (current maintainer)  
+Sebastian Maierhofer (current maintainer) 
+Benjamin Orthen  
 Stefan Urban
