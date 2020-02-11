@@ -37,7 +37,7 @@ from opendrive2lanelet.opendriveparser.elements.junction import (
 __author__ = "Benjamin Orthen, Stefan Urban"
 __copyright__ = "TUM Cyber-Physical Systems Group"
 __credits__ = ["Priority Program SPP 1835 Cooperative Interacting Automobiles"]
-__version__ = "1.1.0"
+__version__ = "1.1.2"
 __maintainer__ = "Benjamin Orthen"
 __email__ = "commonroad-i06@in.tum.de"
 __status__ = "Released"
@@ -466,7 +466,6 @@ def parse_opendrive_road(opendrive, road):
     road_lateral_profile = road.find("lateralProfile")
     if road_lateral_profile is not None:
         parse_opendrive_road_lateral_profile(newRoad, road_lateral_profile)
-    
     # Lanes
     lanes = road.find("lanes")
 

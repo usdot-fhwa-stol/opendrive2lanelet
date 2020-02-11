@@ -5,15 +5,15 @@ associated parametric lanes."""
 
 from typing import Tuple
 import math
-
+import copy
 import numpy as np
 
-from opendrive2lanelet.lanelet import ConversionLanelet
+from opendrive2lanelet.conversion_lanelet import ConversionLanelet
 
 __author__ = "Benjamin Orthen, Stefan Urban"
 __copyright__ = "TUM Cyber-Physical Systems Group"
 __credits__ = ["Priority Program SPP 1835 Cooperative Interacting Automobiles"]
-__version__ = "1.1.0"
+__version__ = "1.1.2"
 __maintainer__ = "Benjamin Orthen"
 __email__ = "commonroad-i06@in.tum.de"
 __status__ = "Released"
@@ -146,10 +146,8 @@ class ParametricLaneGroup:
             local_left_vertices, local_right_vertices = parametric_lane.calc_vertices(
                 precision=precision
             )
-
             if local_left_vertices is None:
                 continue
-
             try:
                 if np.isclose(left_vertices[-1], local_left_vertices[0]).all():
                     idx = 1
