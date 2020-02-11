@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import os
 import sys, getopt
 from pyproj import Proj, transform
@@ -12,6 +15,12 @@ import matplotlib.pyplot as plt
 from numpy import exp, loadtxt, pi, sqrt
 from lmfit import Model
 from scipy.optimize import curve_fit
+
+__author__ = "Samir Tabriz"
+__version__ = "1.0.0"
+__maintainer__ = "Samir Tabriz"
+__email__ = "samir.manafzadehtabriz@leidos.com"
+__status__ = "Released"
 
 # class representing node object in Way object 
 class Node:
@@ -185,71 +194,71 @@ class Opendrive2Lanelet2Convertor:
         return nodes
 
     def convert(self, fn):
-        count = 200
+        # count = 200
         # c = [140, 135, 107]
         for i in self.scenario._id_set:
-            if(count > 0):
-                left_nodes = []
-                right_nodes = []
-                relation_id = str(i)
-                cad_id = str(i)
+            # if(count > 0):
+            left_nodes = []
+            right_nodes = []
+            relation_id = str(i)
+            cad_id = str(i)
 
-                left_nodes = self.process_vertices(self.scenario._lanelet_network._lanelets[i]._left_vertices, relation_id, 0)
-                right_nodes = self.process_vertices(self.scenario._lanelet_network._lanelets[i]._right_vertices, relation_id, 1)
+            left_nodes = self.process_vertices(self.scenario._lanelet_network._lanelets[i]._left_vertices, relation_id, 0)
+            right_nodes = self.process_vertices(self.scenario._lanelet_network._lanelets[i]._right_vertices, relation_id, 1)
 
-                max_speed = self.scenario._lanelet_network._lanelets[i]._speed_limit
+            max_speed = self.scenario._lanelet_network._lanelets[i]._speed_limit
 
-                left_way_id = relation_id + '0'
-                left_way = Way(left_way_id,left_nodes, max_speed)
+            left_way_id = relation_id + '0'
+            left_way = Way(left_way_id,left_nodes, max_speed)
 
-                right_way_id = relation_id + '1'
-                right_way = Way(right_way_id,right_nodes, max_speed)
+            right_way_id = relation_id + '1'
+            right_way = Way(right_way_id,right_nodes, max_speed)
 
-                for k in self.all_ways:
-                    test_x = [j.local_x for j in k.nodes]
-                    test_y = [j.local_y for j in k.nodes]
-                    x = [j.local_x for j in left_nodes]
-                    y = [j.local_y for j in left_nodes]
+            for k in self.all_ways:
+                test_x = [j.local_x for j in k.nodes]
+                test_y = [j.local_y for j in k.nodes]
+                x = [j.local_x for j in left_nodes]
+                y = [j.local_y for j in left_nodes]
 
-                    z = np.polyfit(x,y,3)
-                    z_test = np.polyfit(test_x,test_y,3)
+                z = np.polyfit(x,y,3)
+                z_test = np.polyfit(test_x,test_y,3)
 
-                    f = np.poly1d(z)
-                    f_test = np.poly1d(z_test)
-                    
-                    n = np.polyint((f_test - f))
+                f = np.poly1d(z)
+                f_test = np.poly1d(z_test)
+                
+                n = np.polyint((f_test - f))
 
-                    if(abs(n(1)) < 1):
-                        left_way = k
+                if(abs(n(1)) < 1):
+                    left_way = k
 
-                for k in self.all_ways:
-                    test_x = [j.local_x for j in k.nodes]
-                    test_y = [j.local_y for j in k.nodes]
-                    x = [j.local_x for j in right_nodes]
-                    y = [j.local_y for j in right_nodes]
+            for k in self.all_ways:
+                test_x = [j.local_x for j in k.nodes]
+                test_y = [j.local_y for j in k.nodes]
+                x = [j.local_x for j in right_nodes]
+                y = [j.local_y for j in right_nodes]
 
-                    z = np.polyfit(x,y,3)
-                    z_test = np.polyfit(test_x,test_y,3)
+                z = np.polyfit(x,y,3)
+                z_test = np.polyfit(test_x,test_y,3)
 
-                    f = np.poly1d(z)
-                    f_test = np.poly1d(z_test)
-                    
-                    n = np.polyint((f_test - f))
+                f = np.poly1d(z)
+                f_test = np.poly1d(z_test)
+                
+                n = np.polyint((f_test - f))
 
-                    if(abs(n(1)) < 1):
-                        right_way = k
+                if(abs(n(1)) < 1):
+                    right_way = k
 
-                self.all_ways.append(left_way)
-                self.all_ways.append(right_way)
+            self.all_ways.append(left_way)
+            self.all_ways.append(right_way)
 
-                self.ways.append(left_way.create_xml_way_object())
-                self.ways.append(right_way.create_xml_way_object())
+            self.ways.append(left_way.create_xml_way_object())
+            self.ways.append(right_way.create_xml_way_object())
 
-                from_cad_id = self.scenario._lanelet_network._lanelets[i]._successor
-                to_cad_id = self.scenario._lanelet_network._lanelets[i]._predecessor
-                relation = Relation(relation_id, left_way, right_way, from_cad_id, to_cad_id, cad_id, "lanelet")
-                self.relations.append(relation.create_xml_relation_object())
-            count = count - 1
+            from_cad_id = self.scenario._lanelet_network._lanelets[i]._successor
+            to_cad_id = self.scenario._lanelet_network._lanelets[i]._predecessor
+            relation = Relation(relation_id, left_way, right_way, from_cad_id, to_cad_id, cad_id, "lanelet")
+            self.relations.append(relation.create_xml_relation_object())
+            # count = count - 1
 
         self.write_xml_to_file(fn)
 
