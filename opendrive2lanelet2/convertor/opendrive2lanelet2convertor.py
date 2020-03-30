@@ -19,6 +19,7 @@ from opendrive2lanelet.network import Network
 from opendrive2lanelet2.elements.node import Node
 from opendrive2lanelet2.elements.way import Way
 from opendrive2lanelet2.elements.relation import Relation
+from opendrive2lanelet2.elements.speed_limit_regulatory import SpeedLimitRegulatory
 
 __author__ = "Samir Tabriz"
 __version__ = "1.0.0"
@@ -117,6 +118,7 @@ class Opendrive2Lanelet2Convertor:
             right_nodes = self.process_vertices(self.scenario._lanelet_network._lanelets[i]._right_vertices, relation_id, 1)
 
             max_speed = self.scenario._lanelet_network._lanelets[i]._speed_limit
+            print(max_speed)
 
             left_way_id = relation_id + '0'
             left_way = Way(left_way_id,left_nodes, max_speed)
@@ -166,8 +168,13 @@ class Opendrive2Lanelet2Convertor:
 
             from_cad_id = self.scenario._lanelet_network._lanelets[i]._successor
             to_cad_id = self.scenario._lanelet_network._lanelets[i]._predecessor
-            relation = Relation(relation_id, left_way, right_way, from_cad_id, to_cad_id, cad_id, "lanelet")
-            self.relations.append(relation.create_xml_relation_object())
-            # count = count - 1
+            
+            speed_limit_regulatory_id = relation_id +'00'
+            speed_limit_regulatory = SpeedLimitRegulatory(speed_limit_regulatory_id, relation_id, str(max_speed))
 
+            relation = Relation(relation_id, left_way, right_way, from_cad_id, to_cad_id, cad_id, "lanelet",speed_limit_regulatory_id)
+
+            self.relations.append(relation.create_xml_relation_object())
+            self.relations.append(speed_limit_regulatory.create_xml_speed_limit_regulatory_object())
+            # count = count - 1
         self.write_xml_to_file(fn)

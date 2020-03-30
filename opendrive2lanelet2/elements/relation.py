@@ -12,7 +12,7 @@ __status__ = "Released"
 
 # class representing relation in lanelet2
 class Relation:
-    def __init__(self, id, member_left, member_right, from_cad_id, to_cad_id, cad_id, relation_type):
+    def __init__(self, id, member_left, member_right, from_cad_id, to_cad_id, cad_id, relation_type, regulatory_element_id):
         self.id = str(id)
         self.member_left = member_left
         self.member_right = member_right
@@ -23,12 +23,14 @@ class Relation:
         self.relation_type = relation_type
         self.cad_id = cad_id
         self.turn_direction = "straight"
+        self.regulatory_element_id = regulatory_element_id
         self.set_turn_direction()
 
     def create_xml_relation_object(self):
         relation_element = xml.Element("relation", {"id": self.id, "version": str(1), "visible": "true"})
         xml.SubElement(relation_element, "member", {"ref": self.member_left_id, "role": str("left"), "type": "way"})
         xml.SubElement(relation_element, "member", {"ref": self.member_right_id, "role": str("right"), "type": "way"})
+        xml.SubElement(relation_element, "member", {"ref": self.regulatory_element_id, "role": "regulatory_element", "type": "relation"})
         xml.SubElement(relation_element, "tag", {"k": "cad_id", "v": self.cad_id})
         xml.SubElement(relation_element, "tag", {"k": "direction", "v": "ONE_WAY"})
         xml.SubElement(relation_element, "tag", {"k": "level", "v": "0"})
