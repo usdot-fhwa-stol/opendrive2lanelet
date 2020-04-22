@@ -22,5 +22,5 @@ class SpeedLimitRegulatory:
         xml.SubElement(relation_element, "tag", {"k": "type", "v": "regulatory_element"})
         xml.SubElement(relation_element, "tag", {"k": "subtype", "v": "digital_speed_limit"})
         xml.SubElement(relation_element, "tag", {"k": "participant:vehicle", "v": "yes"})
-        xml.SubElement(relation_element, "tag", {"k": "limit", "v": self.limit})
+        xml.SubElement(relation_element, "tag", {"k": "limit", "v": self.limit + " mph"})
         return relation_element
