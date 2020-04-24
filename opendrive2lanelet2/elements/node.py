@@ -21,4 +21,6 @@ class Node:
     def create_xml_node_object(self):
         node_element = xml.Element('node',{'id': str(self.id), 'lat': str(self.lat), 'lon': str(self.lon), 'version': str(1), 'visible': 'true'})
         xml.SubElement(node_element, "tag", {"k": "ele", "v": "0.0"})
+        xml.SubElement(node_element, "tag", {"k": "lat", "v": str(self.lat)})
+        xml.SubElement(node_element, "tag", {"k": "lon", "v": str(self.lon)})
         return node_element

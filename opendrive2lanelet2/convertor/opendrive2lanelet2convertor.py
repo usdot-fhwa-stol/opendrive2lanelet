@@ -118,7 +118,6 @@ class Opendrive2Lanelet2Convertor:
             right_nodes = self.process_vertices(self.scenario._lanelet_network._lanelets[i]._right_vertices, relation_id, 1)
 
             max_speed = self.scenario._lanelet_network._lanelets[i]._speed_limit
-            print(max_speed)
 
             left_way_id = relation_id + '0'
             left_way = Way(left_way_id,left_nodes, max_speed)
