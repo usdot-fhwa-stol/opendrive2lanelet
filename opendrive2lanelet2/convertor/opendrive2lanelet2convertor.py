@@ -11,6 +11,7 @@ from scipy.optimize import curve_fit
 from pyproj import Proj, transform
 from numpy import exp, loadtxt, pi, sqrt
 
+import xml.dom.minidom as pxml
 import xml.etree.ElementTree as xml
 from lxml import etree
 
@@ -54,6 +55,7 @@ class Opendrive2Lanelet2Convertor:
         return inProj(x,y,inverse=True)
 
     def write_xml_to_file(self,fn):
+        fn.replace(".xodr","")
 
         self.root.append(xml.Element('geoReference', {'v': self.geoReference}))
 
@@ -69,6 +71,14 @@ class Opendrive2Lanelet2Convertor:
         tree = xml.ElementTree(self.root)
         fh = open(fn, "wb")
         tree.write(fh)
+        fh.close()
+
+        dom = pxml.parse(fn)
+        pretty_xml_as_string = dom.toprettyxml()
+
+        fh = open(fn + "_pretty.osm", "w+")
+        fh.write(pretty_xml_as_string)
+        fh.close()
     
     # convert vertice from opendrive to a node in lanelet 
     def convert_vertice_to_node(self,node_id,vertice):
