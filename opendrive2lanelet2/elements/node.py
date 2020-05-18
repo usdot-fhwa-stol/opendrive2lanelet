@@ -23,4 +23,6 @@ class Node:
         xml.SubElement(node_element, "tag", {"k": "ele", "v": "0.0"})
         xml.SubElement(node_element, "tag", {"k": "lat", "v": str(self.lat)})
         xml.SubElement(node_element, "tag", {"k": "lon", "v": str(self.lon)})
+        xml.SubElement(node_element, "tag", {"k": "local_x", "v": str(self.local_x)})
+        xml.SubElement(node_element, "tag", {"k": "local_y", "v": str(self.local_y)})
         return node_element
