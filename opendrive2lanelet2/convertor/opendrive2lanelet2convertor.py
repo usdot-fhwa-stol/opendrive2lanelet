@@ -55,7 +55,7 @@ class Opendrive2Lanelet2Convertor:
         return inProj(x,y,inverse=True)
 
     def write_xml_to_file(self,fn):
-        fn.replace(".xodr","")
+        fn = fn.replace(".xodr","")
 
         self.root.append(xml.Element('geoReference', {'v': self.geoReference}))
 
@@ -75,7 +75,7 @@ class Opendrive2Lanelet2Convertor:
 
         dom = pxml.parse(fn)
         pretty_xml_as_string = dom.toprettyxml()
-        fn.replace(".osm","")
+        fn =  fn.replace(".osm","")
 
         fh = open(fn + "_pretty.osm", "w+")
         fh.write(pretty_xml_as_string)
@@ -126,7 +126,7 @@ class Opendrive2Lanelet2Convertor:
                 self.nodes.append(node.create_xml_node_object())
                 self.all_nodes.append(node)
         return nodes
-    
+
     def area_between_curve(self,c1,c2):
 
         c1_fit = np.polyfit(c1[0],c1[1],4)
@@ -145,18 +145,31 @@ class Opendrive2Lanelet2Convertor:
             x = [j.local_x for j in nodes]
             y = [j.local_y for j in nodes]
 
-            n1 = self.area_between_curve((x,y),(test_x,test_y))
+            intersection_test_x = list(set(test_x) & set(x))
+            intersection_test_y = list(set(test_x) & set(x))
 
-            if(abs(n1(1)) < 1):
+            print("x intersection ", way.id, k.id, len(intersection_test_x))
+            print("y intersection ", way.id, k.id, len(intersection_test_y))
+
+            if(len(intersection_test_x) > 20 and len(intersection_test_y) > 30):
+                print("intersection")
                 return k
+            else:
+                n1 = self.area_between_curve((x,y),(test_x,test_y))
+
+                print("n1 value for ", way.id, k.id, n1(1))
+
+                if(abs(n1(1)) < 1):
+                    return k
+
         return way
 
     def convert(self, fn):
         # count = 200
         c = [104, 107]
-        print(self.scenario._id_set)
-        print(self.scenario._lanelet_network._lanelets[104]._left_vertices)
-        print(self.scenario._lanelet_network._lanelets[104]._right_vertices)
+        # print(self.scenario._id_set)
+        # print(self.scenario._lanelet_network._lanelets[104]._left_vertices)
+        # print(self.scenario._lanelet_network._lanelets[104]._right_vertices)
 
         for i in self.scenario._id_set:
         # for i in c:
@@ -176,11 +189,14 @@ class Opendrive2Lanelet2Convertor:
 
             right_way_id = relation_id + '1'
             right_way = Way(right_way_id,right_nodes, max_speed)
-           
+
+            print(left_way_id)
             left_way = self.check_way_duplication(left_nodes,left_way)
+            self.all_ways.append(left_way)
+
+            print(right_way_id)
             right_way = self.check_way_duplication(right_nodes,right_way)
 
-            self.all_ways.append(left_way)
             self.all_ways.append(right_way)
 
             self.ways.append(left_way.create_xml_way_object())
