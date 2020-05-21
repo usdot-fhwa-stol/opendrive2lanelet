@@ -126,7 +126,7 @@ class Opendrive2Lanelet2Convertor:
                 self.nodes.append(node.create_xml_node_object())
                 self.all_nodes.append(node)
         return nodes
-
+    # calculate area between multiple curves
     def area_between_curve(self,c1,c2):
 
         c1_fit = np.polyfit(c1[0],c1[1],4)
@@ -137,7 +137,7 @@ class Opendrive2Lanelet2Convertor:
         
         n = np.polyint((c2_1d_fun - c1_1d_fun))
         return n
-
+    # check for way duplication in the entire map
     def check_way_duplication(self,nodes,way):
         for k in self.all_ways:
             test_x = [j.local_x for j in k.nodes]
@@ -148,16 +148,11 @@ class Opendrive2Lanelet2Convertor:
             intersection_test_x = list(set(test_x) & set(x))
             intersection_test_y = list(set(test_x) & set(x))
 
-            print("x intersection ", way.id, k.id, len(intersection_test_x))
-            print("y intersection ", way.id, k.id, len(intersection_test_y))
-
             if(len(intersection_test_x) > 20 and len(intersection_test_y) > 30):
                 print("intersection")
                 return k
             else:
                 n1 = self.area_between_curve((x,y),(test_x,test_y))
-
-                print("n1 value for ", way.id, k.id, n1(1))
 
                 if(abs(n1(1)) < 1):
                     return k
@@ -165,15 +160,9 @@ class Opendrive2Lanelet2Convertor:
         return way
 
     def convert(self, fn):
-        # count = 200
-        c = [104, 107]
-        # print(self.scenario._id_set)
-        # print(self.scenario._lanelet_network._lanelets[104]._left_vertices)
-        # print(self.scenario._lanelet_network._lanelets[104]._right_vertices)
 
         for i in self.scenario._id_set:
-        # for i in c:
-            # if(count > 0):
+
             left_nodes = []
             right_nodes = []
             relation_id = str(i)
@@ -212,5 +201,4 @@ class Opendrive2Lanelet2Convertor:
 
             self.relations.append(relation.create_xml_relation_object())
             self.relations.append(speed_limit_regulatory.create_xml_speed_limit_regulatory_object())
-            # count = count - 1
         self.write_xml_to_file(fn)
