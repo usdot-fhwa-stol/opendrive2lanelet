@@ -146,7 +146,7 @@ class Opendrive2Lanelet2Convertor:
             y = [j.local_y for j in nodes]
 
             intersection_test_x = list(set(test_x) & set(x))
-            intersection_test_y = list(set(test_x) & set(x))
+            intersection_test_y = list(set(test_y) & set(y))
 
             if(len(intersection_test_x) > 20 and len(intersection_test_y) > 30):
                 print("intersection")
