@@ -139,6 +139,7 @@ class Opendrive2Lanelet2Convertor:
         return n
     # check for way duplication in the entire map
     def check_way_duplication(self,nodes,way):
+        intersection_test_tresh = 30
         for k in self.all_ways:
             test_x = [j.local_x for j in k.nodes]
             test_y = [j.local_y for j in k.nodes]
@@ -148,8 +149,7 @@ class Opendrive2Lanelet2Convertor:
             intersection_test_x = list(set(test_x) & set(x))
             intersection_test_y = list(set(test_y) & set(y))
 
-            if(len(intersection_test_x) > 20 and len(intersection_test_y) > 30):
-                print("intersection")
+            if(len(intersection_test_x) > intersection_test_tresh and len(intersection_test_y) > intersection_test_tresh):
                 return k
             else:
                 n1 = self.area_between_curve((x,y),(test_x,test_y))
