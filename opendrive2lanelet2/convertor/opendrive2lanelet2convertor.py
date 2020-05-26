@@ -11,6 +11,7 @@ from scipy.optimize import curve_fit
 from pyproj import Proj, transform
 from numpy import exp, loadtxt, pi, sqrt
 
+import xml.dom.minidom as pxml
 import xml.etree.ElementTree as xml
 from lxml import etree
 
@@ -54,6 +55,7 @@ class Opendrive2Lanelet2Convertor:
         return inProj(x,y,inverse=True)
 
     def write_xml_to_file(self,fn):
+        fn = fn.replace(".xodr","")
 
         self.root.append(xml.Element('geoReference', {'v': self.geoReference}))
 
@@ -69,7 +71,16 @@ class Opendrive2Lanelet2Convertor:
         tree = xml.ElementTree(self.root)
         fh = open(fn, "wb")
         tree.write(fh)
-    
+        fh.close()
+
+        dom = pxml.parse(fn)
+        pretty_xml_as_string = dom.toprettyxml()
+        fn =  fn.replace(".osm","")
+
+        fh = open(fn + "_pretty.osm", "w+")
+        fh.write(pretty_xml_as_string)
+        fh.close()
+
     # convert vertice from opendrive to a node in lanelet 
     def convert_vertice_to_node(self,node_id,vertice):
         x = vertice[0]
@@ -77,7 +88,19 @@ class Opendrive2Lanelet2Convertor:
         lon, lat = self.get_point_geo(x,y)
         local_x, local_y = x, y
         return Node(node_id,lat,lon, local_x, local_y)
+
+    def calc_distance_node_tresh(self,n1,n2):
+        if(abs(n1.lat - n2.lat) < 0.000000001 and abs(n1.lon - n2.lon) < 0.000000001):
+            return True
+        else:
+            return False
     
+    def calc_distance_node_isclose(self,n1,n2):
+        if(math.isclose(n1.lat, n2.lat, rel_tol=1e-10) and math.isclose(n1.lon, n2.lon, rel_tol=1e-10)):
+            return True
+        else:
+            return False
+
     # apply convert_vertice_to_node to a list of nodes
     # bound_id 0,1 for left and right 
     def process_vertices(self, vertices, relation_id, bound_id):
@@ -88,12 +111,12 @@ class Opendrive2Lanelet2Convertor:
 
             duplicate_flag = False
             for i in range(len(self.all_nodes)):
-                if(abs(node.lat - self.all_nodes[i].lat) < 0.000000001 and abs(node.lon - self.all_nodes[i].lon) < 0.000000001):
+                if(self.calc_distance_node_tresh(node,self.all_nodes[i])):
                     nodes.append(self.all_nodes[i])
                     duplicate_flag = True
                     break
 
-                if(math.isclose(node.lat, self.all_nodes[i].lat, rel_tol=1e-10) and math.isclose(node.lon, self.all_nodes[i].lon, rel_tol=1e-10)):
+                if(self.calc_distance_node_isclose(node,self.all_nodes[i])):
                     nodes.append(self.all_nodes[i])
                     duplicate_flag = True
                     break
@@ -103,12 +126,43 @@ class Opendrive2Lanelet2Convertor:
                 self.nodes.append(node.create_xml_node_object())
                 self.all_nodes.append(node)
         return nodes
+    # calculate area between multiple curves
+    def area_between_curve(self,c1,c2):
+
+        c1_fit = np.polyfit(c1[0],c1[1],4)
+        c2_fit = np.polyfit(c2[0],c2[1],4)
+
+        c1_1d_fun = np.poly1d(c1_fit)
+        c2_1d_fun = np.poly1d(c2_fit)
+        
+        n = np.polyint((c2_1d_fun - c1_1d_fun))
+        return n
+    # check for way duplication in the entire map
+    def check_way_duplication(self,nodes,way):
+        intersection_test_tresh = 30
+        for k in self.all_ways:
+            test_x = [j.local_x for j in k.nodes]
+            test_y = [j.local_y for j in k.nodes]
+            x = [j.local_x for j in nodes]
+            y = [j.local_y for j in nodes]
+
+            intersection_test_x = list(set(test_x) & set(x))
+            intersection_test_y = list(set(test_y) & set(y))
+
+            if(len(intersection_test_x) > intersection_test_tresh and len(intersection_test_y) > intersection_test_tresh):
+                return k
+            else:
+                n1 = self.area_between_curve((x,y),(test_x,test_y))
+
+                if(abs(n1(1)) < 1):
+                    return k
+
+        return way
 
     def convert(self, fn):
-        # count = 200
-        # c = [140, 135, 107]
+
         for i in self.scenario._id_set:
-            # if(count > 0):
+
             left_nodes = []
             right_nodes = []
             relation_id = str(i)
@@ -125,41 +179,13 @@ class Opendrive2Lanelet2Convertor:
             right_way_id = relation_id + '1'
             right_way = Way(right_way_id,right_nodes, max_speed)
 
-            for k in self.all_ways:
-                test_x = [j.local_x for j in k.nodes]
-                test_y = [j.local_y for j in k.nodes]
-                x = [j.local_x for j in left_nodes]
-                y = [j.local_y for j in left_nodes]
-
-                z = np.polyfit(x,y,3)
-                z_test = np.polyfit(test_x,test_y,3)
-
-                f = np.poly1d(z)
-                f_test = np.poly1d(z_test)
-                
-                n = np.polyint((f_test - f))
-
-                if(abs(n(1)) < 1):
-                    left_way = k
-
-            for k in self.all_ways:
-                test_x = [j.local_x for j in k.nodes]
-                test_y = [j.local_y for j in k.nodes]
-                x = [j.local_x for j in right_nodes]
-                y = [j.local_y for j in right_nodes]
-
-                z = np.polyfit(x,y,3)
-                z_test = np.polyfit(test_x,test_y,3)
-
-                f = np.poly1d(z)
-                f_test = np.poly1d(z_test)
-                
-                n = np.polyint((f_test - f))
-
-                if(abs(n(1)) < 1):
-                    right_way = k
-
+            print(left_way_id)
+            left_way = self.check_way_duplication(left_nodes,left_way)
             self.all_ways.append(left_way)
+
+            print(right_way_id)
+            right_way = self.check_way_duplication(right_nodes,right_way)
+
             self.all_ways.append(right_way)
 
             self.ways.append(left_way.create_xml_way_object())
@@ -175,5 +201,4 @@ class Opendrive2Lanelet2Convertor:
 
             self.relations.append(relation.create_xml_relation_object())
             self.relations.append(speed_limit_regulatory.create_xml_speed_limit_regulatory_object())
-            # count = count - 1
         self.write_xml_to_file(fn)
