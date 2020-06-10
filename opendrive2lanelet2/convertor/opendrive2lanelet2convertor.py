@@ -22,6 +22,8 @@ from opendrive2lanelet2.elements.way import Way
 from opendrive2lanelet2.elements.relation import Relation
 from opendrive2lanelet2.elements.speed_limit_regulatory import SpeedLimitRegulatory
 
+import matplotlib.pyplot as plt
+
 __author__ = "Samir Tabriz"
 __version__ = "1.0.0"
 __maintainer__ = "Samir Tabriz"
@@ -129,38 +131,39 @@ class Opendrive2Lanelet2Convertor:
     # calculate area between multiple curves
     def area_between_curve(self,c1,c2):
 
-        c1_fit = np.polyfit(c1[0],c1[1],4)
-        c2_fit = np.polyfit(c2[0],c2[1],4)
+        c1_fit = np.polyfit(c1[0],c1[1],3)
+        c2_fit = np.polyfit(c2[0],c2[1],3)
 
         c1_1d_fun = np.poly1d(c1_fit)
         c2_1d_fun = np.poly1d(c2_fit)
         
         n = np.polyint((c2_1d_fun - c1_1d_fun))
-        return n
+        return n, c1_1d_fun, c2_1d_fun
     # check for way duplication in the entire map
     def check_way_duplication(self,nodes,way):
-        intersection_test_tresh = 30
+        intersection_test_tresh = 5
+        intersection_test_tresh_ratio = 0.8
+
         for k in self.all_ways:
-            test_x = [j.local_x for j in k.nodes]
-            test_y = [j.local_y for j in k.nodes]
-            x = [j.local_x for j in nodes]
-            y = [j.local_y for j in nodes]
+            test_pts = np.array([[np.round(j.local_x, 3), np.round(j.local_y, 3)] for j in k.nodes])
+            pts = np.array([[np.round(j.local_x, 3), np.round(j.local_y, 3)] for j in nodes])
 
-            intersection_test_x = list(set(test_x) & set(x))
-            intersection_test_y = list(set(test_y) & set(y))
+            combined = np.concatenate((test_pts, pts))
+            tmp, indices = np.unique(combined, axis=0, return_index=True)
+            num_matches = np.shape(combined)[0] - len(indices)
+            ratio_matches = 2 * num_matches / np.shape(combined)[0]
 
-            if(len(intersection_test_x) > intersection_test_tresh and len(intersection_test_y) > intersection_test_tresh):
-                return k
-            else:
-                n1 = self.area_between_curve((x,y),(test_x,test_y))
-
-                if(abs(n1(1)) < 1):
+            if num_matches > intersection_test_tresh:
+                print(f'Passed number test, ratio is {ratio_matches}')
+                plt.plot(test_pts[:,0], test_pts[:,1], 'go-', alpha=0.5, linewidth=4, label='New pts')
+                plt.plot(pts[:,0], pts[:,1], 'r+-',label='Current pts')
+                plt.legend()
+                plt.show()
+                if ratio_matches > intersection_test_tresh_ratio:
                     return k
-
         return way
 
     def convert(self, fn):
-
         for i in self.scenario._id_set:
 
             left_nodes = []
@@ -184,8 +187,7 @@ class Opendrive2Lanelet2Convertor:
             self.all_ways.append(left_way)
 
             print(right_way_id)
-            right_way = self.check_way_duplication(right_nodes,right_way)
-
+            #right_way = self.check_way_duplication(right_nodes,right_way)
             self.all_ways.append(right_way)
 
             self.ways.append(left_way.create_xml_way_object())
