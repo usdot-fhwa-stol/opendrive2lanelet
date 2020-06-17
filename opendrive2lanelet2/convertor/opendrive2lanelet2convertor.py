@@ -59,7 +59,10 @@ class Opendrive2Lanelet2Convertor:
     def write_xml_to_file(self,fn):
         fn = fn.replace(".xodr","")
 
-        self.root.append(xml.Element('geoReference', {'v': self.geoReference}))
+        #self.root.append(xml.Element('geoReference', {'v': self.geoReference}))
+        geo_reference = xml.Element('geoReference')
+        geo_reference.text = self.geoReference
+        self.root.append(geo_reference)
 
         for child in self.nodes.getchildren():
             self.root.append(child)
@@ -154,11 +157,6 @@ class Opendrive2Lanelet2Convertor:
             ratio_matches = 2 * num_matches / np.shape(combined)[0]
 
             if num_matches > intersection_test_tresh:
-                print(f'Passed number test, ratio is {ratio_matches}')
-                plt.plot(test_pts[:,0], test_pts[:,1], 'go-', alpha=0.5, linewidth=4, label='New pts')
-                plt.plot(pts[:,0], pts[:,1], 'r+-',label='Current pts')
-                plt.legend()
-                plt.show()
                 if ratio_matches > intersection_test_tresh_ratio:
                     return k
         return way
