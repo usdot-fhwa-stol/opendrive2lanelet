@@ -171,11 +171,9 @@ class Opendrive2Lanelet2Convertor:
             right_way_id = relation_id + '1'
             right_way = Way(right_way_id,right_nodes, max_speed)
 
-            print(left_way_id)
             left_way = self.check_way_duplication(left_nodes,left_way)
             self.all_ways.append(left_way)
 
-            print(right_way_id)
             right_way = self.check_way_duplication(right_nodes,right_way)
             self.all_ways.append(right_way)
 
