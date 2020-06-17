@@ -131,31 +131,25 @@ class Opendrive2Lanelet2Convertor:
                 self.nodes.append(node.create_xml_node_object())
                 self.all_nodes.append(node)
         return nodes
-    # calculate area between multiple curves
-    def area_between_curve(self,c1,c2):
 
-        c1_fit = np.polyfit(c1[0],c1[1],3)
-        c2_fit = np.polyfit(c2[0],c2[1],3)
-
-        c1_1d_fun = np.poly1d(c1_fit)
-        c2_1d_fun = np.poly1d(c2_fit)
-        
-        n = np.polyint((c2_1d_fun - c1_1d_fun))
-        return n, c1_1d_fun, c2_1d_fun
     # check for way duplication in the entire map
     def check_way_duplication(self,nodes,way):
+	# For a duplicate, need at least 5, and at least 80% matching points
         intersection_test_tresh = 5
         intersection_test_tresh_ratio = 0.8
 
         for k in self.all_ways:
+	    # Get list of points in existing and candidate ways
             test_pts = np.array([[np.round(j.local_x, 3), np.round(j.local_y, 3)] for j in k.nodes])
             pts = np.array([[np.round(j.local_x, 3), np.round(j.local_y, 3)] for j in nodes])
 
+	    # Count the number and ratio of duplicate points
             combined = np.concatenate((test_pts, pts))
             tmp, indices = np.unique(combined, axis=0, return_index=True)
             num_matches = np.shape(combined)[0] - len(indices)
             ratio_matches = 2 * num_matches / np.shape(combined)[0]
 
+	    # If the ratio and count tests pass, re-use the esisting way
             if num_matches > intersection_test_tresh:
                 if ratio_matches > intersection_test_tresh_ratio:
                     return k
