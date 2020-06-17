@@ -22,8 +22,6 @@ from opendrive2lanelet2.elements.way import Way
 from opendrive2lanelet2.elements.relation import Relation
 from opendrive2lanelet2.elements.speed_limit_regulatory import SpeedLimitRegulatory
 
-import matplotlib.pyplot as plt
-
 __author__ = "Samir Tabriz"
 __version__ = "1.0.0"
 __maintainer__ = "Samir Tabriz"
@@ -59,7 +57,6 @@ class Opendrive2Lanelet2Convertor:
     def write_xml_to_file(self,fn):
         fn = fn.replace(".xodr","")
 
-        #self.root.append(xml.Element('geoReference', {'v': self.geoReference}))
         geo_reference = xml.Element('geoReference')
         geo_reference.text = self.geoReference
         self.root.append(geo_reference)
@@ -179,7 +176,7 @@ class Opendrive2Lanelet2Convertor:
             self.all_ways.append(left_way)
 
             print(right_way_id)
-            #right_way = self.check_way_duplication(right_nodes,right_way)
+            right_way = self.check_way_duplication(right_nodes,right_way)
             self.all_ways.append(right_way)
 
             self.ways.append(left_way.create_xml_way_object())
