@@ -5,8 +5,6 @@ import os
 import sys, getopt
 import numpy as np
 import math
-import matplotlib.pyplot as plt
-import time
 
 from lmfit import Model
 from scipy.optimize import curve_fit
@@ -110,18 +108,21 @@ class Opendrive2Lanelet2Convertor:
     # If not, it adds the point to the dictionary and returns False
     def check_duplicate_hash_precise(self, new, tolerace=0.00000001):
         # Grab 5 relative points {-1.1, -0.5, 0, 0.5, 1} in both latitude and longitude
-        #
         new = new / tolerace
         thresh_range = [-1.1, -0.5, 0, 0.5, 1.1]
         for lat_threshold in thresh_range:
             for lon_threshold in thresh_range:
                 threshold = np.array([lat_threshold, lon_threshold])
                 test = new + np.round(threshold, 8)
+
+                # The float -> int conversion will fail if the input value is infinite: float('inf')
+                # If that happens, asssume that it isn't a duplicate and return that is isn't a duplicate
                 try:
                     test_key = self.key_from_latlon_prec(test)
                 except OverflowError:
                     print('Lat or lon over max value')
                     return False, None
+
                 if test_key in self.all_nodes_dict:
                     [point, value] = self.all_nodes_dict[test_key]
                     difference = np.abs(point - new)
