@@ -106,9 +106,16 @@ class Opendrive2Lanelet2Convertor:
     # Uses a dictionary, self.all_nodes_dict, which contains key-value pairs for all existing points
     # If there is an existing point within the threshold distance, it returns True and the index of that point
     # If not, it adds the point to the dictionary and returns False
-    def check_duplicate_hash_precise(self, new, tolerace=0.00000001):
+    # Inputs:
+    #   new       - Array of lat, lon location in units of degrees. ex: [179.992125274, -45.12893761]
+    #   tolerance - Float distance threshold for calling two points the same. In units of degrees in lat and lon
+    # Returns:
+    #   is_dup    - Boolean, true if the value is a duplicate and false if it isn't
+    #   index     - Integer index of the duplicate value in the self.all_nodes array.
+    #                   Set to None if the value is not a duplicate
+    def check_duplicate_hash_precise(self, new, tolerance=0.00000001):
         # Grab 5 relative points {-1.1, -0.5, 0, 0.5, 1} in both latitude and longitude
-        new = new / tolerace
+        new = new / tolerance
         thresh_range = [-1.1, -0.5, 0, 0.5, 1.1]
         for lat_threshold in thresh_range:
             for lon_threshold in thresh_range:
@@ -121,6 +128,7 @@ class Opendrive2Lanelet2Convertor:
                     test_key = self.key_from_latlon_prec(test)
                 except OverflowError:
                     print('Lat or lon over max value')
+                    print('value is: ' + str([new * tolerance]))
                     return False, None
 
                 if test_key in self.all_nodes_dict:
@@ -153,8 +161,14 @@ class Opendrive2Lanelet2Convertor:
         return nodes
 
     # check for way duplication in the entire map
+    # For all ways in the map, compare the nodes of that way to the nodes of the current way
+    # The comparison is done by rounding the local position of each node to 3 decimal places
+    # (points match if they are within 1mm)
+    # If more than 5 nodes match, and more than 80% of the nodes match, it is considered a duplicate
+    # and the way already in the map is used instead of the new one
     def check_way_duplication(self,nodes,way):
-    # For a duplicate, need at least 5, and at least 80% matching points
+        # For a duplicate, need at least 5 and at least 80% matching points
+        # A small way may only have a few points, but we don't want to accidentally match large ways
         intersection_test_tresh = 5
         intersection_test_tresh_ratio = 0.8
 
