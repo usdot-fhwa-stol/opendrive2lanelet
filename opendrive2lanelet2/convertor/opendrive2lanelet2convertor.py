@@ -150,6 +150,20 @@ class Opendrive2Lanelet2Convertor:
             node = self.convert_vertice_to_node(node_id, vertices[j])
             node_latlon = np.array([node.lat, node.lon])
 
+            # Ensure that the node's lat and lon are within the maximum bounds
+            if node.lat > 90:
+                print(f'Node {node.id:d} contains an invalid lat value of {node.lat:.12f}. Setting to 90')
+                node.lat = 90
+            elif node.lat < -90:
+                print(f'Node {node.id:d} contains an invalid lat value of {node.lat:.12f}. Setting to -90')
+                node.lat = -90
+            if node.lon > 180:
+                print(f'Node {node.id:d} contains an invalid lon value of {node.lon:.12f}. Setting to 180')
+                node.lon = 180
+            elif node.lon < -180:
+                print(f'Node {node.id:d} contains an invalid lon value of {node.lon:.12f}. Setting to -180')
+                node.lon = -180
+
             is_dup, index = self.check_duplicate_hash_precise(node_latlon)
             if is_dup:
                 nodes.append(self.all_nodes[index])
