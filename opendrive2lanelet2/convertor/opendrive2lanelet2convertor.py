@@ -128,7 +128,7 @@ class Opendrive2Lanelet2Convertor:
                     test_key = self.key_from_latlon_prec(test)
                 except OverflowError:
                     print('Lat or lon over max value')
-                    print('value is: ' + str([new * tolerance]))
+                    print('value is: ' + str(new * tolerance))
                     return False, None
 
                 if test_key in self.all_nodes_dict:
@@ -148,8 +148,22 @@ class Opendrive2Lanelet2Convertor:
         for j in range(len(vertices)):
             node_id = relation_id + str(bound_id) + "{0:0=3d}".format(j)
             node = self.convert_vertice_to_node(node_id, vertices[j])
-            node_latlon = np.array([node.lat, node.lon])
 
+            # Ensure that the node's lat and lon are within the maximum bounds
+            if node.lat > 90:
+                print(f'Node {node.id:s} contains an invalid lat value of {node.lat:.12f}. Setting to 90')
+                node.lat = 90
+            elif node.lat < -90:
+                print(f'Node {node.id:s} contains an invalid lat value of {node.lat:.12f}. Setting to -90')
+                node.lat = -90
+            if node.lon > 180:
+                print(f'Node {node.id:s} contains an invalid lon value of {node.lon:.12f}. Setting to 180')
+                node.lon = 180
+            elif node.lon < -180:
+                print(f'Node {node.id:s} contains an invalid lon value of {node.lon:.12f}. Setting to -180')
+                node.lon = -180
+
+            node_latlon = np.array([node.lat, node.lon])
             is_dup, index = self.check_duplicate_hash_precise(node_latlon)
             if is_dup:
                 nodes.append(self.all_nodes[index])
