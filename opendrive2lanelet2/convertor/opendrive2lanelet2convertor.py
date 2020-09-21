@@ -21,6 +21,7 @@ from opendrive2lanelet2.elements.node import Node
 from opendrive2lanelet2.elements.way import Way
 from opendrive2lanelet2.elements.relation import Relation
 from opendrive2lanelet2.elements.speed_limit_regulatory import SpeedLimitRegulatory
+from opendrive2lanelet.osm.lanelet2osm import L2OSMConverter
 
 __author__ = "Samir Tabriz"
 __version__ = "1.0.0"
@@ -48,6 +49,17 @@ class Opendrive2Lanelet2Convertor:
         open_drive = parse_opendrive(root)
         road_network = Network()
         road_network.load_opendrive(open_drive)
+        osm_converter = L2OSMConverter(geoReference)
+        
+        fi.close()
+
+        osm_map = osm_converter(road_network.export_commonroad_scenario())
+        with open(fn + "osm_version.osm", "wb") as file_out:
+            file_out.write(
+                etree.tostring(
+                    osm_map, xml_declaration=True, encoding="UTF-8", pretty_print=True
+                )
+            )
         return road_network.export_commonroad_scenario(), geoReference
 
     # convert x,y values to geo points using the geo reference defined in the input file
@@ -204,6 +216,7 @@ class Opendrive2Lanelet2Convertor:
         return way
 
     def convert(self, fn):
+        
         for i in self.scenario._id_set:
             left_nodes = []
             right_nodes = []

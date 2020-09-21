@@ -11,6 +11,7 @@ __status__ = "Released"
 from typing import List, Tuple
 
 import numpy as np
+import math
 from pyproj import Proj
 from commonroad.scenario.lanelet import Lanelet
 
@@ -183,6 +184,9 @@ class L2OSMConverter:
         nodes = []
         for vertice in vertices:
             lon, lat = self.proj(vertice[0], vertice[1], inverse=True)
+            if (math.isinf(lon) or math.isinf(lat)):
+                print(" ERROR: Found inf: lat: " + str(lat) + " lon: " + str(lon) + " x: " + str(vertice[0]) + " y: " + str(vertice[1]))
+
             node = Node(self.id_count, lat, lon)
             nodes.append(node.id_)
             self.osm.add_node(node)
