@@ -46,7 +46,7 @@ class ConversionLanelet(Lanelet):
         adjacent_left_same_direction=None,
         adjacent_right=None,
         adjacent_right_same_direction=None,
-        speed_limit=np.infty,
+        speed_limit=80,
         line_marking_left_vertices=None,
         line_marking_right_vertices=None,
     ):

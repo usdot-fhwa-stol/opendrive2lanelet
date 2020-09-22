@@ -3,8 +3,8 @@ This repository is a forked from the https://gitlab.lrz.de/tum-cps/opendrive2lan
 ### opendrive2lanelet2convertor usage
 
 ```bash
-sudo docker build -t opendrive2lanelet2convertor .
-sudo docker run --rm -it -v [$ path to the folder containing xodr maps]:/root/opendrive2lanelet/map opendrive2lanelet2convertor
+docker build -t opendrive2lanelet2convertor .
+docker run --rm -it -v [$ path to the folder containing xodr maps]:/root/opendrive2lanelet/map opendrive2lanelet2convertor
 ```
 After the process exit the .osm file with the same name should apear in the folder containing xodr maps.
 

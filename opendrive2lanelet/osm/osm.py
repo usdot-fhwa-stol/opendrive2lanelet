@@ -27,6 +27,7 @@ class Node:
         node.set("id", self.id_)
         node.set("action", "modify")
         node.set("visible", "true")
+        node.set("version", "1")
         node.set("lat", self.lat)
         node.set("lon", self.lon)
 
@@ -39,6 +40,9 @@ class Way:
     def __init__(self, id_: str, *nodes):
         self.id_ = str(id_)
         self.nodes = []
+        self.type = "line_thin"
+        self.subtype = "solid"
+
         for node in nodes:
             self.nodes.append(node)
 
@@ -47,26 +51,85 @@ class Way:
         way.set("id", self.id_)
         way.set("action", "modify")
         way.set("visible", "true")
+        way.set("version", "1")
+
+        type_tag = etree.SubElement(way, "tag")
+        type_tag.set("k", "type")
+        type_tag.set("v",  self.type)
+
+        subtype_tag = etree.SubElement(way, "tag")
+        subtype_tag.set("k", "subtype")
+        subtype_tag.set("v",  self.subtype)
+
         for node in self.nodes:
             xml_node = etree.SubElement(way, "nd")
             xml_node.set("ref", node)
 
         return way
 
+class DigitalSpeedLimitReg:
+    """DigitalSpeedLimitRegulation"""
+
+    def __init__(self, id_: str, lanelet, way_relation_id):
+        self.id_ = str(id_)
+        self.type = "regulatory_element"
+        self.subtype = "digital_speed_limit"
+        self.particpants = ["participant:vehicle"]
+        self.limit = str(lanelet.speed_limit) + " mph"
+        self.lanelet = lanelet
+        self.way_relation_id = way_relation_id
+
+    def serialize_to_xml(self):
+        reg = etree.Element("relation")
+        reg.set("id", self.id_)
+        reg.set("action", "modify")
+        reg.set("visible", "true")
+        reg.set("version", "1")
+
+        type_tag = etree.SubElement(reg, "tag")
+        type_tag.set("k", "type")
+        type_tag.set("v",  self.type)
+
+        subtype_tag = etree.SubElement(reg, "tag")
+        subtype_tag.set("k", "subtype")
+        subtype_tag.set("v",  self.subtype)
+
+        limit_tag = etree.SubElement(reg, "tag")
+        limit_tag.set("k", "limit")
+        limit_tag.set("v",  self.limit)
+        
+        for participant in self.particpants:
+            participant_tag = etree.SubElement(reg, "tag")
+            participant_tag.set("k", participant)
+            participant_tag.set("v", "yes")
+
+        refers = etree.SubElement(reg, "member")
+        refers.set("type", "relation")
+        refers.set("ref", str(self.way_relation_id))
+        refers.set("role", "refers")
+
+        return reg
+
 
 class WayRelation:
     """Relation for a lanelet with a left and a right way."""
 
-    def __init__(self, id_: str, left_way: Way, right_way: Way):
+    def __init__(self, id_: str, left_way: Way, right_way: Way, speed_limit_id, turn_direction = "straight"):
         self.id_ = str(id_)
         self.left_way = left_way
         self.right_way = right_way
+        self.speed_limit_id = speed_limit_id
+        self.location = "urban"
+        self.turn_direction = turn_direction
+        self.subtype = "road"
 
     def serialize_to_xml(self) -> etree.Element:
         rel = etree.Element("relation")
         rel.set("id", self.id_)
         rel.set("action", "modify")
         rel.set("visible", "true")
+        rel.set("version", "1")
+
         right_way = etree.SubElement(rel, "member")
         right_way.set("type", "way")
         right_way.set("ref", self.right_way)
@@ -79,8 +142,24 @@ class WayRelation:
         tag.set("k", "type")
         tag.set("v", "lanelet")
 
-        return rel
+        subtype_tag = etree.SubElement(rel, "tag")
+        subtype_tag.set("k", "subtype")
+        subtype_tag.set("v", self.subtype)
 
+        speed_limit = etree.SubElement(rel, "member")
+        speed_limit.set("type", "relation")
+        speed_limit.set("ref", self.speed_limit_id)
+        speed_limit.set("role", "regulatory_element")
+
+        loc_tag = etree.SubElement(rel, "tag")
+        loc_tag.set("k", "location")
+        loc_tag.set("v",  self.location)
+
+        turn_tag = etree.SubElement(rel, "tag")
+        turn_tag.set("k", "turn_direction")
+        turn_tag.set("v",  self.turn_direction)
+
+        return rel
 
 class OSM:
     """Basic OSM representation."""
@@ -89,6 +168,7 @@ class OSM:
         self.nodes = []
         self._ways = []
         self.way_relations = []
+        self.digital_speed_limit_regulations = []
 
     def add_node(self, node: Node):
         """Add a new node to the OSM.
@@ -103,6 +183,9 @@ class OSM:
 
     def add_way_relation(self, way_relation: WayRelation):
         self.way_relations.append(way_relation)
+
+    def add_digital_speed_limit(self, speed_limit_reg: DigitalSpeedLimitReg):
+        self.digital_speed_limit_regulations.append(speed_limit_reg)
 
     def find_way_by_id(self, way_id: str) -> Way:
         for way in self._ways:
@@ -144,5 +227,8 @@ class OSM:
 
         for way_relation in self.way_relations:
             osm.append(way_relation.serialize_to_xml())
+
+        for reg in self.digital_speed_limit_regulations:
+            osm.append(reg.serialize_to_xml())
 
         return osm
