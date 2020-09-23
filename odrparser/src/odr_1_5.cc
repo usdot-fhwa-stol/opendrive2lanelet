@@ -31,31 +31,31 @@ namespace odr_1_5 {
             obj._date = std::string(elem->Attribute("date"));
 
         if (elem->Attribute("east") != nullptr)
-            obj._east = elem->DoubleAttribute("east", 0.0);
+            obj._east = elem->DoubleAttribute("east");
 
         if (elem->Attribute("name") != nullptr)
             obj._name = std::string(elem->Attribute("name"));
 
         if (elem->Attribute("north") != nullptr)
-            obj._north = elem->DoubleAttribute("north", 0.0);
+            obj._north = elem->DoubleAttribute("north");
 
         if (elem->Attribute("revMajor") != nullptr)
-            obj._revMajor = elem->IntAttribute("revMajor", 0);
+            obj._revMajor = elem->IntAttribute("revMajor");
 
         if (elem->Attribute("revMinor") != nullptr)
-            obj._revMinor = elem->IntAttribute("revMinor", 0);
+            obj._revMinor = elem->IntAttribute("revMinor");
 
         if (elem->Attribute("south") != nullptr)
-            obj._south = elem->DoubleAttribute("south", 0.0);
+            obj._south = elem->DoubleAttribute("south");
 
         if (elem->Attribute("vendor") != nullptr)
             obj._vendor = std::string(elem->Attribute("vendor"));
 
         if (elem->Attribute("version") != nullptr)
-            obj._version = elem->FloatAttribute("version", 0.0f);
+            obj._version = elem->FloatAttribute("version");
 
         if (elem->Attribute("west") != nullptr)
-            obj._west = elem->DoubleAttribute("west", 0.0);
+            obj._west = elem->DoubleAttribute("west");
 
         const tinyxml2::XMLElement *e;
 
@@ -82,16 +82,16 @@ namespace odr_1_5 {
     bool __parse__t_header_Offset(const tinyxml2::XMLElement *elem, t_header_Offset &obj) {
 
         if (elem->Attribute("hdg") != nullptr)
-            obj._hdg = elem->FloatAttribute("hdg", 0.0f);
+            obj._hdg = elem->FloatAttribute("hdg");
 
         if (elem->Attribute("x") != nullptr)
-            obj._x = elem->DoubleAttribute("x", 0.0);
+            obj._x = elem->DoubleAttribute("x");
 
         if (elem->Attribute("y") != nullptr)
-            obj._y = elem->DoubleAttribute("y", 0.0);
+            obj._y = elem->DoubleAttribute("y");
 
         if (elem->Attribute("z") != nullptr)
-            obj._z = elem->DoubleAttribute("z", 0.0);
+            obj._z = elem->DoubleAttribute("z");
 
 
         return true;
@@ -107,7 +107,7 @@ namespace odr_1_5 {
             obj._junction = std::string(elem->Attribute("junction"));
 
         if (elem->Attribute("length") != nullptr)
-            obj._length = elem->DoubleAttribute("length", 0.0);
+            obj._length = elem->DoubleAttribute("length");
 
         if (elem->Attribute("name") != nullptr)
             obj._name = std::string(elem->Attribute("name"));
@@ -201,7 +201,7 @@ namespace odr_1_5 {
             obj._elementId = std::string(elem->Attribute("elementId"));
 
         if (elem->Attribute("elementS") != nullptr)
-            obj._elementS = elem->DoubleAttribute("elementS", 0.0);
+            obj._elementS = elem->DoubleAttribute("elementS");
 
         if (elem->Attribute("elementType") != nullptr)
             obj._elementType = std::string(elem->Attribute("elementType"));
@@ -233,7 +233,7 @@ namespace odr_1_5 {
             obj._country = std::string(elem->Attribute("country"));
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
         if (elem->Attribute("type") != nullptr)
             obj._type = std::string(elem->Attribute("type"));
@@ -283,19 +283,19 @@ namespace odr_1_5 {
     bool __parse__t_road_planView_geometry(const tinyxml2::XMLElement *elem, t_road_planView_geometry &obj) {
 
         if (elem->Attribute("hdg") != nullptr)
-            obj._hdg = elem->DoubleAttribute("hdg", 0.0);
+            obj._hdg = elem->DoubleAttribute("hdg");
 
         if (elem->Attribute("length") != nullptr)
-            obj._length = elem->DoubleAttribute("length", 0.0);
+            obj._length = elem->DoubleAttribute("length");
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
         if (elem->Attribute("x") != nullptr)
-            obj._x = elem->DoubleAttribute("x", 0.0);
+            obj._x = elem->DoubleAttribute("x");
 
         if (elem->Attribute("y") != nullptr)
-            obj._y = elem->DoubleAttribute("y", 0.0);
+            obj._y = elem->DoubleAttribute("y");
 
         const tinyxml2::XMLElement *e;
 
@@ -335,10 +335,10 @@ namespace odr_1_5 {
     __parse__t_road_planView_geometry_spiral(const tinyxml2::XMLElement *elem, t_road_planView_geometry_spiral &obj) {
 
         if (elem->Attribute("curvEnd") != nullptr)
-            obj._curvEnd = elem->DoubleAttribute("curvEnd", 0.0);
+            obj._curvEnd = elem->DoubleAttribute("curvEnd");
 
         if (elem->Attribute("curvStart") != nullptr)
-            obj._curvStart = elem->DoubleAttribute("curvStart", 0.0);
+            obj._curvStart = elem->DoubleAttribute("curvStart");
 
 
         return true;
@@ -348,7 +348,7 @@ namespace odr_1_5 {
     bool __parse__t_road_planView_geometry_arc(const tinyxml2::XMLElement *elem, t_road_planView_geometry_arc &obj) {
 
         if (elem->Attribute("curvature") != nullptr)
-            obj._curvature = elem->DoubleAttribute("curvature", 0.0);
+            obj._curvature = elem->DoubleAttribute("curvature");
 
 
         return true;
@@ -359,16 +359,16 @@ namespace odr_1_5 {
     __parse__t_road_planView_geometry_poly3(const tinyxml2::XMLElement *elem, t_road_planView_geometry_poly3 &obj) {
 
         if (elem->Attribute("a") != nullptr)
-            obj._a = elem->DoubleAttribute("a", 0.0);
+            obj._a = elem->DoubleAttribute("a");
 
         if (elem->Attribute("b") != nullptr)
-            obj._b = elem->DoubleAttribute("b", 0.0);
+            obj._b = elem->DoubleAttribute("b");
 
         if (elem->Attribute("c") != nullptr)
-            obj._c = elem->DoubleAttribute("c", 0.0);
+            obj._c = elem->DoubleAttribute("c");
 
         if (elem->Attribute("d") != nullptr)
-            obj._d = elem->DoubleAttribute("d", 0.0);
+            obj._d = elem->DoubleAttribute("d");
 
 
         return true;
@@ -379,28 +379,28 @@ namespace odr_1_5 {
                                                       t_road_planView_geometry_paramPoly3 &obj) {
 
         if (elem->Attribute("aU") != nullptr)
-            obj._aU = elem->DoubleAttribute("aU", 0.0);
+            obj._aU = elem->DoubleAttribute("aU");
 
         if (elem->Attribute("aV") != nullptr)
-            obj._aV = elem->DoubleAttribute("aV", 0.0);
+            obj._aV = elem->DoubleAttribute("aV");
 
         if (elem->Attribute("bU") != nullptr)
-            obj._bU = elem->DoubleAttribute("bU", 0.0);
+            obj._bU = elem->DoubleAttribute("bU");
 
         if (elem->Attribute("bV") != nullptr)
-            obj._bV = elem->DoubleAttribute("bV", 0.0);
+            obj._bV = elem->DoubleAttribute("bV");
 
         if (elem->Attribute("cU") != nullptr)
-            obj._cU = elem->DoubleAttribute("cU", 0.0);
+            obj._cU = elem->DoubleAttribute("cU");
 
         if (elem->Attribute("cV") != nullptr)
-            obj._cV = elem->DoubleAttribute("cV", 0.0);
+            obj._cV = elem->DoubleAttribute("cV");
 
         if (elem->Attribute("dU") != nullptr)
-            obj._dU = elem->DoubleAttribute("dU", 0.0);
+            obj._dU = elem->DoubleAttribute("dU");
 
         if (elem->Attribute("dV") != nullptr)
-            obj._dV = elem->DoubleAttribute("dV", 0.0);
+            obj._dV = elem->DoubleAttribute("dV");
 
         if (elem->Attribute("pRange") != nullptr)
             obj._pRange = std::string(elem->Attribute("pRange"));
@@ -432,19 +432,19 @@ namespace odr_1_5 {
                                                     t_road_elevationProfile_elevation &obj) {
 
         if (elem->Attribute("a") != nullptr)
-            obj._a = elem->DoubleAttribute("a", 0.0);
+            obj._a = elem->DoubleAttribute("a");
 
         if (elem->Attribute("b") != nullptr)
-            obj._b = elem->DoubleAttribute("b", 0.0);
+            obj._b = elem->DoubleAttribute("b");
 
         if (elem->Attribute("c") != nullptr)
-            obj._c = elem->DoubleAttribute("c", 0.0);
+            obj._c = elem->DoubleAttribute("c");
 
         if (elem->Attribute("d") != nullptr)
-            obj._d = elem->DoubleAttribute("d", 0.0);
+            obj._d = elem->DoubleAttribute("d");
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
 
         return true;
@@ -491,19 +491,19 @@ namespace odr_1_5 {
                                                        t_road_lateralProfile_superelevation &obj) {
 
         if (elem->Attribute("a") != nullptr)
-            obj._a = elem->DoubleAttribute("a", 0.0);
+            obj._a = elem->DoubleAttribute("a");
 
         if (elem->Attribute("b") != nullptr)
-            obj._b = elem->DoubleAttribute("b", 0.0);
+            obj._b = elem->DoubleAttribute("b");
 
         if (elem->Attribute("c") != nullptr)
-            obj._c = elem->DoubleAttribute("c", 0.0);
+            obj._c = elem->DoubleAttribute("c");
 
         if (elem->Attribute("d") != nullptr)
-            obj._d = elem->DoubleAttribute("d", 0.0);
+            obj._d = elem->DoubleAttribute("d");
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
 
         return true;
@@ -514,19 +514,19 @@ namespace odr_1_5 {
     __parse__t_road_lateralProfile_crossfall(const tinyxml2::XMLElement *elem, t_road_lateralProfile_crossfall &obj) {
 
         if (elem->Attribute("a") != nullptr)
-            obj._a = elem->DoubleAttribute("a", 0.0);
+            obj._a = elem->DoubleAttribute("a");
 
         if (elem->Attribute("b") != nullptr)
-            obj._b = elem->DoubleAttribute("b", 0.0);
+            obj._b = elem->DoubleAttribute("b");
 
         if (elem->Attribute("c") != nullptr)
-            obj._c = elem->DoubleAttribute("c", 0.0);
+            obj._c = elem->DoubleAttribute("c");
 
         if (elem->Attribute("d") != nullptr)
-            obj._d = elem->DoubleAttribute("d", 0.0);
+            obj._d = elem->DoubleAttribute("d");
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
         if (elem->Attribute("side") != nullptr)
             obj._side = std::string(elem->Attribute("side"));
@@ -539,22 +539,22 @@ namespace odr_1_5 {
     bool __parse__t_road_lateralProfile_shape(const tinyxml2::XMLElement *elem, t_road_lateralProfile_shape &obj) {
 
         if (elem->Attribute("a") != nullptr)
-            obj._a = elem->DoubleAttribute("a", 0.0);
+            obj._a = elem->DoubleAttribute("a");
 
         if (elem->Attribute("b") != nullptr)
-            obj._b = elem->DoubleAttribute("b", 0.0);
+            obj._b = elem->DoubleAttribute("b");
 
         if (elem->Attribute("c") != nullptr)
-            obj._c = elem->DoubleAttribute("c", 0.0);
+            obj._c = elem->DoubleAttribute("c");
 
         if (elem->Attribute("d") != nullptr)
-            obj._d = elem->DoubleAttribute("d", 0.0);
+            obj._d = elem->DoubleAttribute("d");
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
         if (elem->Attribute("t") != nullptr)
-            obj._t = elem->DoubleAttribute("t", 0.0);
+            obj._t = elem->DoubleAttribute("t");
 
 
         return true;
@@ -591,19 +591,19 @@ namespace odr_1_5 {
     bool __parse__t_road_lanes_laneOffset(const tinyxml2::XMLElement *elem, t_road_lanes_laneOffset &obj) {
 
         if (elem->Attribute("a") != nullptr)
-            obj._a = elem->DoubleAttribute("a", 0.0);
+            obj._a = elem->DoubleAttribute("a");
 
         if (elem->Attribute("b") != nullptr)
-            obj._b = elem->DoubleAttribute("b", 0.0);
+            obj._b = elem->DoubleAttribute("b");
 
         if (elem->Attribute("c") != nullptr)
-            obj._c = elem->DoubleAttribute("c", 0.0);
+            obj._c = elem->DoubleAttribute("c");
 
         if (elem->Attribute("d") != nullptr)
-            obj._d = elem->DoubleAttribute("d", 0.0);
+            obj._d = elem->DoubleAttribute("d");
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
 
         return true;
@@ -613,7 +613,7 @@ namespace odr_1_5 {
     bool __parse__t_road_lanes_laneSection(const tinyxml2::XMLElement *elem, t_road_lanes_laneSection &obj) {
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
         if (elem->Attribute("singleSide") != nullptr)
             obj._singleSide = std::string(elem->Attribute("singleSide"));
@@ -697,7 +697,7 @@ namespace odr_1_5 {
                                                        t_road_lanes_laneSection_center_lane &obj) {
 
         if (elem->Attribute("id") != nullptr)
-            obj._id = elem->IntAttribute("id", 0);
+            obj._id = elem->IntAttribute("id");
 
         if (elem->Attribute("level") != nullptr)
             obj._level = std::string(elem->Attribute("level"));
@@ -832,7 +832,7 @@ namespace odr_1_5 {
         __parse__t_road_lanes_laneSection_lr_lane(elem, obj);
 
         if (elem->Attribute("id") != nullptr)
-            obj._id = elem->UnsignedAttribute("id", 0);
+            obj._id = elem->UnsignedAttribute("id");
 
 
         return true;
@@ -845,7 +845,7 @@ namespace odr_1_5 {
         __parse__t_road_lanes_laneSection_lr_lane(elem, obj);
 
         if (elem->Attribute("id") != nullptr)
-            obj._id = elem->IntAttribute("id", 0);
+            obj._id = elem->IntAttribute("id");
 
 
         return true;
@@ -884,7 +884,7 @@ namespace odr_1_5 {
                                                                               t_road_lanes_laneSection_lcr_lane_link_predecessorSuccessor &obj) {
 
         if (elem->Attribute("id") != nullptr)
-            obj._id = elem->IntAttribute("id", 0);
+            obj._id = elem->IntAttribute("id");
 
 
         return true;
@@ -895,19 +895,19 @@ namespace odr_1_5 {
                                                          t_road_lanes_laneSection_lr_lane_width &obj) {
 
         if (elem->Attribute("a") != nullptr)
-            obj._a = elem->DoubleAttribute("a", 0.0);
+            obj._a = elem->DoubleAttribute("a");
 
         if (elem->Attribute("b") != nullptr)
-            obj._b = elem->DoubleAttribute("b", 0.0);
+            obj._b = elem->DoubleAttribute("b");
 
         if (elem->Attribute("c") != nullptr)
-            obj._c = elem->DoubleAttribute("c", 0.0);
+            obj._c = elem->DoubleAttribute("c");
 
         if (elem->Attribute("d") != nullptr)
-            obj._d = elem->DoubleAttribute("d", 0.0);
+            obj._d = elem->DoubleAttribute("d");
 
         if (elem->Attribute("sOffset") != nullptr)
-            obj._sOffset = elem->DoubleAttribute("sOffset", 0.0);
+            obj._sOffset = elem->DoubleAttribute("sOffset");
 
 
         return true;
@@ -918,19 +918,19 @@ namespace odr_1_5 {
                                                           t_road_lanes_laneSection_lr_lane_border &obj) {
 
         if (elem->Attribute("a") != nullptr)
-            obj._a = elem->DoubleAttribute("a", 0.0);
+            obj._a = elem->DoubleAttribute("a");
 
         if (elem->Attribute("b") != nullptr)
-            obj._b = elem->DoubleAttribute("b", 0.0);
+            obj._b = elem->DoubleAttribute("b");
 
         if (elem->Attribute("c") != nullptr)
-            obj._c = elem->DoubleAttribute("c", 0.0);
+            obj._c = elem->DoubleAttribute("c");
 
         if (elem->Attribute("d") != nullptr)
-            obj._d = elem->DoubleAttribute("d", 0.0);
+            obj._d = elem->DoubleAttribute("d");
 
         if (elem->Attribute("sOffset") != nullptr)
-            obj._sOffset = elem->DoubleAttribute("sOffset", 0.0);
+            obj._sOffset = elem->DoubleAttribute("sOffset");
 
 
         return true;
@@ -944,7 +944,7 @@ namespace odr_1_5 {
             obj._color = std::string(elem->Attribute("color"));
 
         if (elem->Attribute("height") != nullptr)
-            obj._height = elem->DoubleAttribute("height", 0.0);
+            obj._height = elem->DoubleAttribute("height");
 
         if (elem->Attribute("laneChange") != nullptr)
             obj._laneChange = std::string(elem->Attribute("laneChange"));
@@ -953,7 +953,7 @@ namespace odr_1_5 {
             obj._material = std::string(elem->Attribute("material"));
 
         if (elem->Attribute("sOffset") != nullptr)
-            obj._sOffset = elem->DoubleAttribute("sOffset", 0.0);
+            obj._sOffset = elem->DoubleAttribute("sOffset");
 
         if (elem->Attribute("type") != nullptr)
             obj._type = std::string(elem->Attribute("type"));
@@ -962,7 +962,7 @@ namespace odr_1_5 {
             obj._weight = std::string(elem->Attribute("weight"));
 
         if (elem->Attribute("width") != nullptr)
-            obj._width = elem->DoubleAttribute("width", 0.0);
+            obj._width = elem->DoubleAttribute("width");
 
         const tinyxml2::XMLElement *e;
 
@@ -992,19 +992,19 @@ namespace odr_1_5 {
                                                                   t_road_lanes_laneSection_lcr_lane_roadMark_sway &obj) {
 
         if (elem->Attribute("a") != nullptr)
-            obj._a = elem->DoubleAttribute("a", 0.0);
+            obj._a = elem->DoubleAttribute("a");
 
         if (elem->Attribute("b") != nullptr)
-            obj._b = elem->DoubleAttribute("b", 0.0);
+            obj._b = elem->DoubleAttribute("b");
 
         if (elem->Attribute("c") != nullptr)
-            obj._c = elem->DoubleAttribute("c", 0.0);
+            obj._c = elem->DoubleAttribute("c");
 
         if (elem->Attribute("d") != nullptr)
-            obj._d = elem->DoubleAttribute("d", 0.0);
+            obj._d = elem->DoubleAttribute("d");
 
         if (elem->Attribute("ds") != nullptr)
-            obj._ds = elem->DoubleAttribute("ds", 0.0);
+            obj._ds = elem->DoubleAttribute("ds");
 
 
         return true;
@@ -1018,7 +1018,7 @@ namespace odr_1_5 {
             obj._name = std::string(elem->Attribute("name"));
 
         if (elem->Attribute("width") != nullptr)
-            obj._width = elem->DoubleAttribute("width", 0.0);
+            obj._width = elem->DoubleAttribute("width");
 
         const tinyxml2::XMLElement *e;
 
@@ -1043,22 +1043,22 @@ namespace odr_1_5 {
             obj._color = std::string(elem->Attribute("color"));
 
         if (elem->Attribute("length") != nullptr)
-            obj._length = elem->DoubleAttribute("length", 0.0);
+            obj._length = elem->DoubleAttribute("length");
 
         if (elem->Attribute("rule") != nullptr)
             obj._rule = std::string(elem->Attribute("rule"));
 
         if (elem->Attribute("sOffset") != nullptr)
-            obj._sOffset = elem->DoubleAttribute("sOffset", 0.0);
+            obj._sOffset = elem->DoubleAttribute("sOffset");
 
         if (elem->Attribute("space") != nullptr)
-            obj._space = elem->DoubleAttribute("space", 0.0);
+            obj._space = elem->DoubleAttribute("space");
 
         if (elem->Attribute("tOffset") != nullptr)
-            obj._tOffset = elem->DoubleAttribute("tOffset", 0.0);
+            obj._tOffset = elem->DoubleAttribute("tOffset");
 
         if (elem->Attribute("width") != nullptr)
-            obj._width = elem->DoubleAttribute("width", 0.0);
+            obj._width = elem->DoubleAttribute("width");
 
 
         return true;
@@ -1088,19 +1088,19 @@ namespace odr_1_5 {
                                                                            t_road_lanes_laneSection_lcr_lane_roadMark_explicit_line &obj) {
 
         if (elem->Attribute("length") != nullptr)
-            obj._length = elem->DoubleAttribute("length", 0.0);
+            obj._length = elem->DoubleAttribute("length");
 
         if (elem->Attribute("rule") != nullptr)
             obj._rule = std::string(elem->Attribute("rule"));
 
         if (elem->Attribute("sOffset") != nullptr)
-            obj._sOffset = elem->DoubleAttribute("sOffset", 0.0);
+            obj._sOffset = elem->DoubleAttribute("sOffset");
 
         if (elem->Attribute("tOffset") != nullptr)
-            obj._tOffset = elem->DoubleAttribute("tOffset", 0.0);
+            obj._tOffset = elem->DoubleAttribute("tOffset");
 
         if (elem->Attribute("width") != nullptr)
-            obj._width = elem->DoubleAttribute("width", 0.0);
+            obj._width = elem->DoubleAttribute("width");
 
 
         return true;
@@ -1111,13 +1111,13 @@ namespace odr_1_5 {
                                                             t_road_lanes_laneSection_lr_lane_material &obj) {
 
         if (elem->Attribute("friction") != nullptr)
-            obj._friction = elem->DoubleAttribute("friction", 0.0);
+            obj._friction = elem->DoubleAttribute("friction");
 
         if (elem->Attribute("roughness") != nullptr)
-            obj._roughness = elem->DoubleAttribute("roughness", 0.0);
+            obj._roughness = elem->DoubleAttribute("roughness");
 
         if (elem->Attribute("sOffset") != nullptr)
-            obj._sOffset = elem->DoubleAttribute("sOffset", 0.0);
+            obj._sOffset = elem->DoubleAttribute("sOffset");
 
         if (elem->Attribute("surface") != nullptr)
             obj._surface = std::string(elem->Attribute("surface"));
@@ -1131,19 +1131,19 @@ namespace odr_1_5 {
                                                               t_road_lanes_laneSection_lr_lane_visibility &obj) {
 
         if (elem->Attribute("back") != nullptr)
-            obj._back = elem->DoubleAttribute("back", 0.0);
+            obj._back = elem->DoubleAttribute("back");
 
         if (elem->Attribute("forward") != nullptr)
-            obj._forward = elem->DoubleAttribute("forward", 0.0);
+            obj._forward = elem->DoubleAttribute("forward");
 
         if (elem->Attribute("left") != nullptr)
-            obj._left = elem->DoubleAttribute("left", 0.0);
+            obj._left = elem->DoubleAttribute("left");
 
         if (elem->Attribute("right") != nullptr)
-            obj._right = elem->DoubleAttribute("right", 0.0);
+            obj._right = elem->DoubleAttribute("right");
 
         if (elem->Attribute("sOffset") != nullptr)
-            obj._sOffset = elem->DoubleAttribute("sOffset", 0.0);
+            obj._sOffset = elem->DoubleAttribute("sOffset");
 
 
         return true;
@@ -1154,10 +1154,10 @@ namespace odr_1_5 {
                                                          t_road_lanes_laneSection_lr_lane_speed &obj) {
 
         if (elem->Attribute("max") != nullptr)
-            obj._max = elem->DoubleAttribute("max", 0.0);
+            obj._max = elem->DoubleAttribute("max");
 
         if (elem->Attribute("sOffset") != nullptr)
-            obj._sOffset = elem->DoubleAttribute("sOffset", 0.0);
+            obj._sOffset = elem->DoubleAttribute("sOffset");
 
         if (elem->Attribute("unit") != nullptr)
             obj._unit = std::string(elem->Attribute("unit"));
@@ -1177,7 +1177,7 @@ namespace odr_1_5 {
             obj._rule = std::string(elem->Attribute("rule"));
 
         if (elem->Attribute("sOffset") != nullptr)
-            obj._sOffset = elem->DoubleAttribute("sOffset", 0.0);
+            obj._sOffset = elem->DoubleAttribute("sOffset");
 
 
         return true;
@@ -1188,13 +1188,13 @@ namespace odr_1_5 {
                                                           t_road_lanes_laneSection_lr_lane_height &obj) {
 
         if (elem->Attribute("inner") != nullptr)
-            obj._inner = elem->DoubleAttribute("inner", 0.0);
+            obj._inner = elem->DoubleAttribute("inner");
 
         if (elem->Attribute("outer") != nullptr)
-            obj._outer = elem->DoubleAttribute("outer", 0.0);
+            obj._outer = elem->DoubleAttribute("outer");
 
         if (elem->Attribute("sOffset") != nullptr)
-            obj._sOffset = elem->DoubleAttribute("sOffset", 0.0);
+            obj._sOffset = elem->DoubleAttribute("sOffset");
 
 
         return true;
@@ -1205,7 +1205,7 @@ namespace odr_1_5 {
                                                         t_road_lanes_laneSection_lr_lane_rule &obj) {
 
         if (elem->Attribute("sOffset") != nullptr)
-            obj._sOffset = elem->DoubleAttribute("sOffset", 0.0);
+            obj._sOffset = elem->DoubleAttribute("sOffset");
 
         if (elem->Attribute("value") != nullptr)
             obj._value = std::string(elem->Attribute("value"));
@@ -1266,16 +1266,16 @@ namespace odr_1_5 {
             obj._dynamic = std::string(elem->Attribute("dynamic"));
 
         if (elem->Attribute("hdg") != nullptr)
-            obj._hdg = elem->DoubleAttribute("hdg", 0.0);
+            obj._hdg = elem->DoubleAttribute("hdg");
 
         if (elem->Attribute("height") != nullptr)
-            obj._height = elem->DoubleAttribute("height", 0.0);
+            obj._height = elem->DoubleAttribute("height");
 
         if (elem->Attribute("id") != nullptr)
             obj._id = std::string(elem->Attribute("id"));
 
         if (elem->Attribute("length") != nullptr)
-            obj._length = elem->DoubleAttribute("length", 0.0);
+            obj._length = elem->DoubleAttribute("length");
 
         if (elem->Attribute("name") != nullptr)
             obj._name = std::string(elem->Attribute("name"));
@@ -1284,34 +1284,34 @@ namespace odr_1_5 {
             obj._orientation = std::string(elem->Attribute("orientation"));
 
         if (elem->Attribute("pitch") != nullptr)
-            obj._pitch = elem->DoubleAttribute("pitch", 0.0);
+            obj._pitch = elem->DoubleAttribute("pitch");
 
         if (elem->Attribute("radius") != nullptr)
-            obj._radius = elem->DoubleAttribute("radius", 0.0);
+            obj._radius = elem->DoubleAttribute("radius");
 
         if (elem->Attribute("roll") != nullptr)
-            obj._roll = elem->DoubleAttribute("roll", 0.0);
+            obj._roll = elem->DoubleAttribute("roll");
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
         if (elem->Attribute("subtype") != nullptr)
             obj._subtype = std::string(elem->Attribute("subtype"));
 
         if (elem->Attribute("t") != nullptr)
-            obj._t = elem->DoubleAttribute("t", 0.0);
+            obj._t = elem->DoubleAttribute("t");
 
         if (elem->Attribute("type") != nullptr)
             obj._type = std::string(elem->Attribute("type"));
 
         if (elem->Attribute("validLength") != nullptr)
-            obj._validLength = elem->DoubleAttribute("validLength", 0.0);
+            obj._validLength = elem->DoubleAttribute("validLength");
 
         if (elem->Attribute("width") != nullptr)
-            obj._width = elem->DoubleAttribute("width", 0.0);
+            obj._width = elem->DoubleAttribute("width");
 
         if (elem->Attribute("zOffset") != nullptr)
-            obj._zOffset = elem->DoubleAttribute("zOffset", 0.0);
+            obj._zOffset = elem->DoubleAttribute("zOffset");
 
         const tinyxml2::XMLElement *e;
 
@@ -1365,49 +1365,49 @@ namespace odr_1_5 {
     bool __parse__t_road_objects_object_repeat(const tinyxml2::XMLElement *elem, t_road_objects_object_repeat &obj) {
 
         if (elem->Attribute("distance") != nullptr)
-            obj._distance = elem->DoubleAttribute("distance", 0.0);
+            obj._distance = elem->DoubleAttribute("distance");
 
         if (elem->Attribute("heightEnd") != nullptr)
-            obj._heightEnd = elem->DoubleAttribute("heightEnd", 0.0);
+            obj._heightEnd = elem->DoubleAttribute("heightEnd");
 
         if (elem->Attribute("heightStart") != nullptr)
-            obj._heightStart = elem->DoubleAttribute("heightStart", 0.0);
+            obj._heightStart = elem->DoubleAttribute("heightStart");
 
         if (elem->Attribute("length") != nullptr)
-            obj._length = elem->DoubleAttribute("length", 0.0);
+            obj._length = elem->DoubleAttribute("length");
 
         if (elem->Attribute("lengthEnd") != nullptr)
-            obj._lengthEnd = elem->DoubleAttribute("lengthEnd", 0.0);
+            obj._lengthEnd = elem->DoubleAttribute("lengthEnd");
 
         if (elem->Attribute("lengthStart") != nullptr)
-            obj._lengthStart = elem->DoubleAttribute("lengthStart", 0.0);
+            obj._lengthStart = elem->DoubleAttribute("lengthStart");
 
         if (elem->Attribute("radiusEnd") != nullptr)
-            obj._radiusEnd = elem->DoubleAttribute("radiusEnd", 0.0);
+            obj._radiusEnd = elem->DoubleAttribute("radiusEnd");
 
         if (elem->Attribute("radiusStart") != nullptr)
-            obj._radiusStart = elem->DoubleAttribute("radiusStart", 0.0);
+            obj._radiusStart = elem->DoubleAttribute("radiusStart");
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
         if (elem->Attribute("tEnd") != nullptr)
-            obj._tEnd = elem->DoubleAttribute("tEnd", 0.0);
+            obj._tEnd = elem->DoubleAttribute("tEnd");
 
         if (elem->Attribute("tStart") != nullptr)
-            obj._tStart = elem->DoubleAttribute("tStart", 0.0);
+            obj._tStart = elem->DoubleAttribute("tStart");
 
         if (elem->Attribute("widthEnd") != nullptr)
-            obj._widthEnd = elem->DoubleAttribute("widthEnd", 0.0);
+            obj._widthEnd = elem->DoubleAttribute("widthEnd");
 
         if (elem->Attribute("widthStart") != nullptr)
-            obj._widthStart = elem->DoubleAttribute("widthStart", 0.0);
+            obj._widthStart = elem->DoubleAttribute("widthStart");
 
         if (elem->Attribute("zOffsetEnd") != nullptr)
-            obj._zOffsetEnd = elem->DoubleAttribute("zOffsetEnd", 0.0);
+            obj._zOffsetEnd = elem->DoubleAttribute("zOffsetEnd");
 
         if (elem->Attribute("zOffsetStart") != nullptr)
-            obj._zOffsetStart = elem->DoubleAttribute("zOffsetStart", 0.0);
+            obj._zOffsetStart = elem->DoubleAttribute("zOffsetStart");
 
 
         return true;
@@ -1443,7 +1443,7 @@ namespace odr_1_5 {
             obj._fillType = std::string(elem->Attribute("fillType"));
 
         if (elem->Attribute("id") != nullptr)
-            obj._id = elem->UnsignedAttribute("id", 0);
+            obj._id = elem->UnsignedAttribute("id");
 
         if (elem->Attribute("laneType") != nullptr)
             obj._laneType = std::string(elem->Attribute("laneType"));
@@ -1480,19 +1480,19 @@ namespace odr_1_5 {
                                                                     t_road_objects_object_outlines_outline_cornerRoad &obj) {
 
         if (elem->Attribute("dz") != nullptr)
-            obj._dz = elem->DoubleAttribute("dz", 0.0);
+            obj._dz = elem->DoubleAttribute("dz");
 
         if (elem->Attribute("height") != nullptr)
-            obj._height = elem->DoubleAttribute("height", 0.0);
+            obj._height = elem->DoubleAttribute("height");
 
         if (elem->Attribute("id") != nullptr)
-            obj._id = elem->UnsignedAttribute("id", 0);
+            obj._id = elem->UnsignedAttribute("id");
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
         if (elem->Attribute("t") != nullptr)
-            obj._t = elem->DoubleAttribute("t", 0.0);
+            obj._t = elem->DoubleAttribute("t");
 
 
         return true;
@@ -1503,19 +1503,19 @@ namespace odr_1_5 {
                                                                      t_road_objects_object_outlines_outline_cornerLocal &obj) {
 
         if (elem->Attribute("height") != nullptr)
-            obj._height = elem->DoubleAttribute("height", 0.0);
+            obj._height = elem->DoubleAttribute("height");
 
         if (elem->Attribute("id") != nullptr)
-            obj._id = elem->UnsignedAttribute("id", 0);
+            obj._id = elem->UnsignedAttribute("id");
 
         if (elem->Attribute("u") != nullptr)
-            obj._u = elem->DoubleAttribute("u", 0.0);
+            obj._u = elem->DoubleAttribute("u");
 
         if (elem->Attribute("v") != nullptr)
-            obj._v = elem->DoubleAttribute("v", 0.0);
+            obj._v = elem->DoubleAttribute("v");
 
         if (elem->Attribute("z") != nullptr)
-            obj._z = elem->DoubleAttribute("z", 0.0);
+            obj._z = elem->DoubleAttribute("z");
 
 
         return true;
@@ -1526,10 +1526,10 @@ namespace odr_1_5 {
     __parse__t_road_objects_object_material(const tinyxml2::XMLElement *elem, t_road_objects_object_material &obj) {
 
         if (elem->Attribute("friction") != nullptr)
-            obj._friction = elem->DoubleAttribute("friction", 0.0);
+            obj._friction = elem->DoubleAttribute("friction");
 
         if (elem->Attribute("roughness") != nullptr)
-            obj._roughness = elem->DoubleAttribute("roughness", 0.0);
+            obj._roughness = elem->DoubleAttribute("roughness");
 
         if (elem->Attribute("surface") != nullptr)
             obj._surface = std::string(elem->Attribute("surface"));
@@ -1543,10 +1543,10 @@ namespace odr_1_5 {
                                                      t_road_objects_object_laneValidity &obj) {
 
         if (elem->Attribute("fromLane") != nullptr)
-            obj._fromLane = elem->IntAttribute("fromLane", 0);
+            obj._fromLane = elem->IntAttribute("fromLane");
 
         if (elem->Attribute("toLane") != nullptr)
-            obj._toLane = elem->IntAttribute("toLane", 0);
+            obj._toLane = elem->IntAttribute("toLane");
 
 
         return true;
@@ -1593,28 +1593,28 @@ namespace odr_1_5 {
             obj._color = std::string(elem->Attribute("color"));
 
         if (elem->Attribute("lineLength") != nullptr)
-            obj._lineLength = elem->DoubleAttribute("lineLength", 0.0);
+            obj._lineLength = elem->DoubleAttribute("lineLength");
 
         if (elem->Attribute("side") != nullptr)
             obj._side = std::string(elem->Attribute("side"));
 
         if (elem->Attribute("spaceLength") != nullptr)
-            obj._spaceLength = elem->DoubleAttribute("spaceLength", 0.0);
+            obj._spaceLength = elem->DoubleAttribute("spaceLength");
 
         if (elem->Attribute("startOffset") != nullptr)
-            obj._startOffset = elem->DoubleAttribute("startOffset", 0.0);
+            obj._startOffset = elem->DoubleAttribute("startOffset");
 
         if (elem->Attribute("stopOffset") != nullptr)
-            obj._stopOffset = elem->DoubleAttribute("stopOffset", 0.0);
+            obj._stopOffset = elem->DoubleAttribute("stopOffset");
 
         if (elem->Attribute("weight") != nullptr)
             obj._weight = std::string(elem->Attribute("weight"));
 
         if (elem->Attribute("width") != nullptr)
-            obj._width = elem->DoubleAttribute("width", 0.0);
+            obj._width = elem->DoubleAttribute("width");
 
         if (elem->Attribute("zOffset") != nullptr)
-            obj._zOffset = elem->DoubleAttribute("zOffset", 0.0);
+            obj._zOffset = elem->DoubleAttribute("zOffset");
 
         const tinyxml2::XMLElement *e;
 
@@ -1636,7 +1636,7 @@ namespace odr_1_5 {
                                                                          t_road_objects_object_markings_marking_cornerReference &obj) {
 
         if (elem->Attribute("id") != nullptr)
-            obj._id = elem->UnsignedAttribute("id", 0);
+            obj._id = elem->UnsignedAttribute("id");
 
 
         return true;
@@ -1665,7 +1665,7 @@ namespace odr_1_5 {
                                                        t_road_objects_object_borders_border &obj) {
 
         if (elem->Attribute("outlineId") != nullptr)
-            obj._outlineId = elem->UnsignedAttribute("outlineId", 0);
+            obj._outlineId = elem->UnsignedAttribute("outlineId");
 
         if (elem->Attribute("type") != nullptr)
             obj._type = std::string(elem->Attribute("type"));
@@ -1674,7 +1674,7 @@ namespace odr_1_5 {
             obj._useCompleteOutline = std::string(elem->Attribute("useCompleteOutline"));
 
         if (elem->Attribute("width") != nullptr)
-            obj._width = elem->DoubleAttribute("width", 0.0);
+            obj._width = elem->DoubleAttribute("width");
 
         const tinyxml2::XMLElement *e;
 
@@ -1702,16 +1702,16 @@ namespace odr_1_5 {
             obj._orientation = std::string(elem->Attribute("orientation"));
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
         if (elem->Attribute("t") != nullptr)
-            obj._t = elem->DoubleAttribute("t", 0.0);
+            obj._t = elem->DoubleAttribute("t");
 
         if (elem->Attribute("validLength") != nullptr)
-            obj._validLength = elem->DoubleAttribute("validLength", 0.0);
+            obj._validLength = elem->DoubleAttribute("validLength");
 
         if (elem->Attribute("zOffset") != nullptr)
-            obj._zOffset = elem->DoubleAttribute("zOffset", 0.0);
+            obj._zOffset = elem->DoubleAttribute("zOffset");
 
         const tinyxml2::XMLElement *e;
 
@@ -1732,22 +1732,22 @@ namespace odr_1_5 {
     bool __parse__t_road_objects_tunnel(const tinyxml2::XMLElement *elem, t_road_objects_tunnel &obj) {
 
         if (elem->Attribute("daylight") != nullptr)
-            obj._daylight = elem->DoubleAttribute("daylight", 0.0);
+            obj._daylight = elem->DoubleAttribute("daylight");
 
         if (elem->Attribute("id") != nullptr)
             obj._id = std::string(elem->Attribute("id"));
 
         if (elem->Attribute("length") != nullptr)
-            obj._length = elem->DoubleAttribute("length", 0.0);
+            obj._length = elem->DoubleAttribute("length");
 
         if (elem->Attribute("lighting") != nullptr)
-            obj._lighting = elem->DoubleAttribute("lighting", 0.0);
+            obj._lighting = elem->DoubleAttribute("lighting");
 
         if (elem->Attribute("name") != nullptr)
             obj._name = std::string(elem->Attribute("name"));
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
         if (elem->Attribute("type") != nullptr)
             obj._type = std::string(elem->Attribute("type"));
@@ -1774,13 +1774,13 @@ namespace odr_1_5 {
             obj._id = std::string(elem->Attribute("id"));
 
         if (elem->Attribute("length") != nullptr)
-            obj._length = elem->DoubleAttribute("length", 0.0);
+            obj._length = elem->DoubleAttribute("length");
 
         if (elem->Attribute("name") != nullptr)
             obj._name = std::string(elem->Attribute("name"));
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
         if (elem->Attribute("type") != nullptr)
             obj._type = std::string(elem->Attribute("type"));
@@ -1840,10 +1840,10 @@ namespace odr_1_5 {
             obj._dynamic = std::string(elem->Attribute("dynamic"));
 
         if (elem->Attribute("hOffset") != nullptr)
-            obj._hOffset = elem->DoubleAttribute("hOffset", 0.0);
+            obj._hOffset = elem->DoubleAttribute("hOffset");
 
         if (elem->Attribute("height") != nullptr)
-            obj._height = elem->DoubleAttribute("height", 0.0);
+            obj._height = elem->DoubleAttribute("height");
 
         if (elem->Attribute("id") != nullptr)
             obj._id = std::string(elem->Attribute("id"));
@@ -1855,19 +1855,19 @@ namespace odr_1_5 {
             obj._orientation = std::string(elem->Attribute("orientation"));
 
         if (elem->Attribute("pitch") != nullptr)
-            obj._pitch = elem->DoubleAttribute("pitch", 0.0);
+            obj._pitch = elem->DoubleAttribute("pitch");
 
         if (elem->Attribute("roll") != nullptr)
-            obj._roll = elem->DoubleAttribute("roll", 0.0);
+            obj._roll = elem->DoubleAttribute("roll");
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
         if (elem->Attribute("subtype") != nullptr)
             obj._subtype = std::string(elem->Attribute("subtype"));
 
         if (elem->Attribute("t") != nullptr)
-            obj._t = elem->DoubleAttribute("t", 0.0);
+            obj._t = elem->DoubleAttribute("t");
 
         if (elem->Attribute("text") != nullptr)
             obj._text = std::string(elem->Attribute("text"));
@@ -1879,13 +1879,13 @@ namespace odr_1_5 {
             obj._unit = std::string(elem->Attribute("unit"));
 
         if (elem->Attribute("value") != nullptr)
-            obj._value = elem->DoubleAttribute("value", 0.0);
+            obj._value = elem->DoubleAttribute("value");
 
         if (elem->Attribute("width") != nullptr)
-            obj._width = elem->DoubleAttribute("width", 0.0);
+            obj._width = elem->DoubleAttribute("width");
 
         if (elem->Attribute("zOffset") != nullptr)
-            obj._zOffset = elem->DoubleAttribute("zOffset", 0.0);
+            obj._zOffset = elem->DoubleAttribute("zOffset");
 
         const tinyxml2::XMLElement *e;
 
@@ -1974,25 +1974,25 @@ namespace odr_1_5 {
                                                      t_road_signals_signal_positionRoad &obj) {
 
         if (elem->Attribute("hOffset") != nullptr)
-            obj._hOffset = elem->DoubleAttribute("hOffset", 0.0);
+            obj._hOffset = elem->DoubleAttribute("hOffset");
 
         if (elem->Attribute("pitch") != nullptr)
-            obj._pitch = elem->DoubleAttribute("pitch", 0.0);
+            obj._pitch = elem->DoubleAttribute("pitch");
 
         if (elem->Attribute("roadId") != nullptr)
             obj._roadId = std::string(elem->Attribute("roadId"));
 
         if (elem->Attribute("roll") != nullptr)
-            obj._roll = elem->DoubleAttribute("roll", 0.0);
+            obj._roll = elem->DoubleAttribute("roll");
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
         if (elem->Attribute("t") != nullptr)
-            obj._t = elem->DoubleAttribute("t", 0.0);
+            obj._t = elem->DoubleAttribute("t");
 
         if (elem->Attribute("zOffset") != nullptr)
-            obj._zOffset = elem->DoubleAttribute("zOffset", 0.0);
+            obj._zOffset = elem->DoubleAttribute("zOffset");
 
 
         return true;
@@ -2003,22 +2003,22 @@ namespace odr_1_5 {
                                                          t_road_signals_signal_positionInertial &obj) {
 
         if (elem->Attribute("hdg") != nullptr)
-            obj._hdg = elem->DoubleAttribute("hdg", 0.0);
+            obj._hdg = elem->DoubleAttribute("hdg");
 
         if (elem->Attribute("pitch") != nullptr)
-            obj._pitch = elem->DoubleAttribute("pitch", 0.0);
+            obj._pitch = elem->DoubleAttribute("pitch");
 
         if (elem->Attribute("roll") != nullptr)
-            obj._roll = elem->DoubleAttribute("roll", 0.0);
+            obj._roll = elem->DoubleAttribute("roll");
 
         if (elem->Attribute("x") != nullptr)
-            obj._x = elem->DoubleAttribute("x", 0.0);
+            obj._x = elem->DoubleAttribute("x");
 
         if (elem->Attribute("y") != nullptr)
-            obj._y = elem->DoubleAttribute("y", 0.0);
+            obj._y = elem->DoubleAttribute("y");
 
         if (elem->Attribute("z") != nullptr)
-            obj._z = elem->DoubleAttribute("z", 0.0);
+            obj._z = elem->DoubleAttribute("z");
 
 
         return true;
@@ -2035,10 +2035,10 @@ namespace odr_1_5 {
             obj._orientation = std::string(elem->Attribute("orientation"));
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
         if (elem->Attribute("t") != nullptr)
-            obj._t = elem->DoubleAttribute("t", 0.0);
+            obj._t = elem->DoubleAttribute("t");
 
         const tinyxml2::XMLElement *e;
 
@@ -2080,7 +2080,7 @@ namespace odr_1_5 {
             obj._file = std::string(elem->Attribute("file"));
 
         if (elem->Attribute("hOffset") != nullptr)
-            obj._hOffset = elem->DoubleAttribute("hOffset", 0.0);
+            obj._hOffset = elem->DoubleAttribute("hOffset");
 
         if (elem->Attribute("mode") != nullptr)
             obj._mode = std::string(elem->Attribute("mode"));
@@ -2092,22 +2092,22 @@ namespace odr_1_5 {
             obj._purpose = std::string(elem->Attribute("purpose"));
 
         if (elem->Attribute("sEnd") != nullptr)
-            obj._sEnd = elem->DoubleAttribute("sEnd", 0.0);
+            obj._sEnd = elem->DoubleAttribute("sEnd");
 
         if (elem->Attribute("sOffset") != nullptr)
-            obj._sOffset = elem->DoubleAttribute("sOffset", 0.0);
+            obj._sOffset = elem->DoubleAttribute("sOffset");
 
         if (elem->Attribute("sStart") != nullptr)
-            obj._sStart = elem->DoubleAttribute("sStart", 0.0);
+            obj._sStart = elem->DoubleAttribute("sStart");
 
         if (elem->Attribute("tOffset") != nullptr)
-            obj._tOffset = elem->DoubleAttribute("tOffset", 0.0);
+            obj._tOffset = elem->DoubleAttribute("tOffset");
 
         if (elem->Attribute("zOffset") != nullptr)
-            obj._zOffset = elem->DoubleAttribute("zOffset", 0.0);
+            obj._zOffset = elem->DoubleAttribute("zOffset");
 
         if (elem->Attribute("zScale") != nullptr)
-            obj._zScale = elem->DoubleAttribute("zScale", 0.0);
+            obj._zScale = elem->DoubleAttribute("zScale");
 
 
         return true;
@@ -2172,7 +2172,7 @@ namespace odr_1_5 {
             obj._id = std::string(elem->Attribute("id"));
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
 
         return true;
@@ -2189,7 +2189,7 @@ namespace odr_1_5 {
             obj._id = std::string(elem->Attribute("id"));
 
         if (elem->Attribute("s") != nullptr)
-            obj._s = elem->DoubleAttribute("s", 0.0);
+            obj._s = elem->DoubleAttribute("s");
 
 
         return true;
@@ -2219,7 +2219,7 @@ namespace odr_1_5 {
             obj._name = std::string(elem->Attribute("name"));
 
         if (elem->Attribute("sequence") != nullptr)
-            obj._sequence = elem->UnsignedAttribute("sequence", 0);
+            obj._sequence = elem->UnsignedAttribute("sequence");
 
         const tinyxml2::XMLElement *e;
 
@@ -2353,7 +2353,7 @@ namespace odr_1_5 {
             obj._elementId = std::string(elem->Attribute("elementId"));
 
         if (elem->Attribute("elementS") != nullptr)
-            obj._elementS = elem->DoubleAttribute("elementS", 0.0);
+            obj._elementS = elem->DoubleAttribute("elementS");
 
         if (elem->Attribute("elementType") != nullptr)
             obj._elementType = std::string(elem->Attribute("elementType"));
@@ -2367,10 +2367,10 @@ namespace odr_1_5 {
     __parse__t_junction_connection_laneLink(const tinyxml2::XMLElement *elem, t_junction_connection_laneLink &obj) {
 
         if (elem->Attribute("from") != nullptr)
-            obj._from = elem->IntAttribute("from", 0);
+            obj._from = elem->IntAttribute("from");
 
         if (elem->Attribute("to") != nullptr)
-            obj._to = elem->IntAttribute("to", 0);
+            obj._to = elem->IntAttribute("to");
 
 
         return true;
@@ -2396,7 +2396,7 @@ namespace odr_1_5 {
             obj._id = std::string(elem->Attribute("id"));
 
         if (elem->Attribute("sequence") != nullptr)
-            obj._sequence = elem->UnsignedAttribute("sequence", 0);
+            obj._sequence = elem->UnsignedAttribute("sequence");
 
         if (elem->Attribute("type") != nullptr)
             obj._type = std::string(elem->Attribute("type"));
@@ -2436,10 +2436,10 @@ namespace odr_1_5 {
             obj._purpose = std::string(elem->Attribute("purpose"));
 
         if (elem->Attribute("zOffset") != nullptr)
-            obj._zOffset = elem->DoubleAttribute("zOffset", 0.0);
+            obj._zOffset = elem->DoubleAttribute("zOffset");
 
         if (elem->Attribute("zScale") != nullptr)
-            obj._zScale = elem->DoubleAttribute("zScale", 0.0);
+            obj._zScale = elem->DoubleAttribute("zScale");
 
 
         return true;
@@ -2541,10 +2541,10 @@ namespace odr_1_5 {
             obj._roadId = std::string(elem->Attribute("roadId"));
 
         if (elem->Attribute("sEnd") != nullptr)
-            obj._sEnd = elem->DoubleAttribute("sEnd", 0.0);
+            obj._sEnd = elem->DoubleAttribute("sEnd");
 
         if (elem->Attribute("sStart") != nullptr)
-            obj._sStart = elem->DoubleAttribute("sStart", 0.0);
+            obj._sStart = elem->DoubleAttribute("sStart");
 
         if (elem->Attribute("side") != nullptr)
             obj._side = std::string(elem->Attribute("side"));
@@ -2597,16 +2597,16 @@ namespace odr_1_5 {
     bool __parse__t_dataQuality_Error(const tinyxml2::XMLElement *elem, t_dataQuality_Error &obj) {
 
         if (elem->Attribute("xyAbsolute") != nullptr)
-            obj._xyAbsolute = elem->DoubleAttribute("xyAbsolute", 0.0);
+            obj._xyAbsolute = elem->DoubleAttribute("xyAbsolute");
 
         if (elem->Attribute("xyRelative") != nullptr)
-            obj._xyRelative = elem->DoubleAttribute("xyRelative", 0.0);
+            obj._xyRelative = elem->DoubleAttribute("xyRelative");
 
         if (elem->Attribute("zAbsolute") != nullptr)
-            obj._zAbsolute = elem->DoubleAttribute("zAbsolute", 0.0);
+            obj._zAbsolute = elem->DoubleAttribute("zAbsolute");
 
         if (elem->Attribute("zRelative") != nullptr)
-            obj._zRelative = elem->DoubleAttribute("zRelative", 0.0);
+            obj._zRelative = elem->DoubleAttribute("zRelative");
 
 
         return true;
