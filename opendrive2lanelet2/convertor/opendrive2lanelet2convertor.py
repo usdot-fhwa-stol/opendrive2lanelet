@@ -13,6 +13,7 @@ from numpy import exp, loadtxt, pi, sqrt
 
 import xml.dom.minidom as pxml
 import xml.etree.ElementTree as xml
+import re
 from lxml import etree
 
 from opendrive2lanelet.opendriveparser.parser import parse_opendrive
@@ -40,19 +41,35 @@ class Opendrive2Lanelet2Convertor:
         open_drive = parse_opendrive(root)
 
         # Access
-        geoReference = root[0][0].text
+        header = root.find('header')
+        geoReference = header.find('geoReference').text
 
         # Build CommonRoad Lanelet1 network
         road_network = Network()
         road_network.load_opendrive(open_drive)
 
-        # Convert to Lanelet2 OSM
-        osm_converter = L2OSMConverter(geoReference)
-        
+        simple_geoReference = geoReference
+
+        print('Found geoReference: ' + simple_geoReference)
+
+        if '+geoidgrids=' in simple_geoReference:
+            print('Ignoring +geoidgrids in projection as it is not currently supported')
+            geoidgrids_tag = re.search('.*?(\+geoidgrids\=.*?\ +).*$', simple_geoReference).group(1)
+            simple_geoReference = simple_geoReference.replace(geoidgrids_tag, '')
+            print('Used conversion projection is ' + simple_geoReference)
+
         file_in.close()
 
-        # Write OSM file
+        # Convert to Lanelet2 OSM
+        osm_converter = L2OSMConverter(simple_geoReference)
+        
         osm_map = osm_converter(road_network.export_commonroad_scenario())
+
+        # Add georeference back to osm
+        geo_tag = etree.Element('geoReference')
+        geo_tag.text = geoReference
+        osm_map.insert(0, geo_tag)
+
         with open(output_file_path, "wb") as file_out:
             file_out.write(
                 etree.tostring(
