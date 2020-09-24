@@ -16,9 +16,6 @@ from lxml import etree
 
 from opendrive2lanelet.opendriveparser.parser import parse_opendrive
 from opendrive2lanelet.network import Network
-from opendrive2lanelet2.elements.node import Node
-from opendrive2lanelet2.elements.way import Way
-from opendrive2lanelet2.elements.relation import Relation
 from opendrive2lanelet2.convertor.opendrive2lanelet2convertor import Opendrive2Lanelet2Convertor
 
 def main(argv):
@@ -39,6 +36,13 @@ def main(argv):
         elif opt in ("-o", "--ofile"):
             outputfile = arg
     if(inputfile is not None and outputfile is not None):
+        if not inputfile.endswith(".xodr"):
+            print('Input file must be OpenDRIVE .xodr file')
+            sys.exit()
+        if not outputfile.endswith(".osm"):
+            print('Output file must be Lanelet2 .osm file')
+            sys.exit()
+        
         open_drive2_lanelet2_convertor = Opendrive2Lanelet2Convertor(inputfile)
         open_drive2_lanelet2_convertor.convert(outputfile)
 
