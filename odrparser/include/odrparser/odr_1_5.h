@@ -57,9 +57,9 @@ namespace odr_1_5 {
         using Vector = std::vector<T>;
     } // namespace xsd
 
-    typedef xsd::d_double t_grEqZero;
-    typedef xsd::d_double t_grZero;
-    typedef xsd::d_double t_zeroOne;
+    typedef xsd::d_double t_grEqZero; // Greater than or equal to zero
+    typedef xsd::d_double t_grZero; // Greater than 0
+    typedef xsd::d_double t_zeroOne; // Zero or One
     typedef xsd::d_string t_bool;
     typedef xsd::d_string t_yesNo;
     typedef xsd::d_float t_header_Version;
