@@ -1,11 +1,15 @@
-# opendrive2lanelet2convertor usage
+This repository is a forked from the https://gitlab.lrz.de/tum-cps/opendrive2lanelet/tree/master/opendrive2lanelet.
+
+### opendrive2lanelet2convertor usage
 
 ```bash
-sudo docker build -t opendrive2lanelet2convertor .
-sudo docker run --rm -it -v [$ path to the folder containing xodr maps]:/root/opendrive2lanelet/map opendrive2lanelet2convertor
+docker build -t opendrive2lanelet2convertor .
+docker run --rm -it -v [$ path to the folder containing xodr maps]:/root/opendrive2lanelet/map opendrive2lanelet2convertor
 ```
 After the process exit the .osm file with the same name should apear in the folder containing xodr maps.
 
+# Important notices
+* Speed limit unit is hard coded as mph
 # OpenDRIVE 2 Lanelet - Converter
 
 We provide the code for an OpenDRIVE ([www.opendrive.org](http://www.opendrive.org)) to lanelets ([www.mrt.kit.edu/software/liblanelet](https://www.mrt.kit.edu/software/libLanelet/libLanelet.html)) converter, which has been introduced in our [paper](https://mediatum.ub.tum.de/doc/1449005/1449005.pdf): M. Althoff, S. Urban, and M. Koschi, "Automatic Conversion of Road Networks from OpenDRIVE to Lanelets," in Proc. of the IEEE International Conference on Service Operations and Logistics, and Informatics, 2018.

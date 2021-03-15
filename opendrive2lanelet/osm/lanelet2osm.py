@@ -11,10 +11,11 @@ __status__ = "Released"
 from typing import List, Tuple
 
 import numpy as np
+import math
 from pyproj import Proj
 from commonroad.scenario.lanelet import Lanelet
 
-from opendrive2lanelet.osm.osm import OSM, Node, Way, WayRelation, DEFAULT_PROJ_STRING
+from opendrive2lanelet.osm.osm import OSM, Node, Way, WayRelation, DigitalSpeedLimitReg, DEFAULT_PROJ_STRING
 
 ways_are_equal_tolerance = 0.001
 
@@ -28,7 +29,7 @@ class L2OSMConverter:
         else:
             self.proj = Proj(DEFAULT_PROJ_STRING)
         self.osm = None
-        self._id_count = -1
+        self._id_count = 1
         self.first_nodes, self.last_nodes = None, None
         self.left_ways, self.right_ways = None, None
         self.lanelet_network = None
@@ -42,7 +43,7 @@ class L2OSMConverter:
           Current id count.
         """
         tmp = self._id_count
-        self._id_count -= 1
+        self._id_count += 1
         return tmp
 
     def __call__(self, scenario):
@@ -82,16 +83,28 @@ class L2OSMConverter:
 
         if not left_way_id:
             left_way = Way(self.id_count, *left_nodes)
+            if lanelet.line_marking_left_vertices != None:
+                left_way.subtype = lanelet.line_marking_left_vertices
             self.osm.add_way(left_way)
             left_way_id = left_way.id_
         if not right_way_id:
             right_way = Way(self.id_count, *right_nodes)
+            if lanelet.line_marking_right_vertices != None:
+                right_way.subtype = lanelet.line_marking_right_vertices
             self.osm.add_way(right_way)
             right_way_id = right_way.id_
 
         self.left_ways[lanelet.lanelet_id] = left_way_id
         self.right_ways[lanelet.lanelet_id] = right_way_id
-        self.osm.add_way_relation(WayRelation(self.id_count, left_way_id, right_way_id))
+
+        way_relation_id = self.id_count
+
+        speed_limit = DigitalSpeedLimitReg(self.id_count, lanelet, way_relation_id)
+        self.osm.add_digital_speed_limit(speed_limit)
+
+        turn_direction = self.get_turn_direction(lanelet)
+
+        self.osm.add_way_relation(WayRelation(way_relation_id, left_way_id, right_way_id, speed_limit.id_, turn_direction))
 
     def _create_nodes(
         self, lanelet: Lanelet, left_way_id: str, right_way_id: str
@@ -181,8 +194,21 @@ class L2OSMConverter:
           Ids of nodes which were created.
         """
         nodes = []
+        last_valid_lat = 0
+        last_valid_lon = 0
+        invalid_vertice_count = 0
         for vertice in vertices:
             lon, lat = self.proj(vertice[0], vertice[1], inverse=True)
+            if (math.isinf(lon) or math.isinf(lat)):
+                print(" ERROR: Found inf: lat: " + str(lat) + " lon: " + str(lon) + " x: " + str(vertice[0]) + " y: " + str(vertice[1]))
+                invalid_vertice_count + 1
+                lon = last_valid_lon + 0.0001 + (invalid_vertice_count * 0.00001)
+                lat = last_valid_lat + 0.0001 + (invalid_vertice_count * 0.00001)
+            else:
+                last_valid_lat = lat
+                last_valid_lon = lon
+                invalid_vertice_count = 0
+
             node = Node(self.id_count, lat, lon)
             nodes.append(node.id_)
             self.osm.add_node(node)
@@ -296,6 +322,46 @@ class L2OSMConverter:
                         return last_left_node, last_right_node
 
         return None, None
+
+    # start is the first point of lanelet
+    # mid is the secound point of lanlelet
+    # end is the last point of lanelet
+    # set_direction is used by set_turn direction to check if the lanelet is turning left or right
+    def get_direction(self, start, mid, end):
+        if(((mid[0] - start[0])*(end[1] - start[1]) - (mid[1] - start[1])*(end[0] - start[0])) > 0):
+            return 1
+        else:
+            return 0
+
+    #set_turn_direction is used to set set the turn_direction tag in lanelet
+    def get_turn_direction(self, lanelet):
+        turn_direction = "straight"
+        is_turn = False
+        for id in lanelet.predecessor:
+            l = self.lanelet_network.find_lanelet_by_id(id)
+            if len(l.successor) > 1 and len(lanelet.successor) > 0:
+                is_turn = True
+                break
+        
+        if(is_turn):
+            point_cnt = len(lanelet.center_vertices) 
+            start = np.array([lanelet.center_vertices[0][0],lanelet.center_vertices[0][1]])
+            mid = np.array([lanelet.center_vertices[int(point_cnt/2)][0],lanelet.center_vertices[int(point_cnt/2)][1]])
+            end = np.array([lanelet.center_vertices[-1][0],lanelet.center_vertices[-1][1]])
+
+
+            start_mid = mid - start
+            start_end = end - start
+            cosine_angle = np.dot(start_mid, start_end) / (np.linalg.norm(start_mid) * np.linalg.norm(start_end))
+            alpha = np.arccos(cosine_angle)
+
+            if(np.degrees(alpha) > 10):
+                if(self.get_direction(start,mid,end) == 0):
+                    turn_direction = "right"
+                else:
+                    turn_direction = "left"
+
+        return turn_direction
 
 
 def _vertices_are_equal(
