@@ -21,6 +21,7 @@ setup(
     packages=find_packages(exclude=("test",)),
     include_package_data=True,
     install_requires=[
+        "pyparsing==2.4.7",
         "numpy>=1.16.4",
         "lxml>=4.3.4",
         "commonroad-io==2019.1",
