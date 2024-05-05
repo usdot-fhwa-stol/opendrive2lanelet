@@ -31,7 +31,7 @@ class ParametricLaneGroup:
         inner_neighbour=None,
         inner_neighbour_same_direction=True,
         outer_neighbour=None,
-        speed=np.infty
+        speed=np.inf
     ):
 
         self._geo_lengths = [np.array([0.0])]
@@ -162,7 +162,7 @@ class ParametricLaneGroup:
         center_vertices = np.array(
             [(l + r) / 2 for (l, r) in zip(left_vertices, right_vertices)]
         )
-        
+
         # speed_limit
         if(self.speed != {}):
             lanelet = ConversionLanelet(
