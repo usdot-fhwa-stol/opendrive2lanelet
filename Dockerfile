@@ -1,8 +1,8 @@
-FROM python:3.8
+FROM python:3.12
 
 COPY . /root/opendrive2lanelet
 
-Workdir /root/opendrive2lanelet
+WORKDIR /root/opendrive2lanelet
 
 RUN python setup.py install
 RUN chmod +x /root/opendrive2lanelet/run.sh
