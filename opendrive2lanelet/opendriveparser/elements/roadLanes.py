@@ -87,6 +87,7 @@ class Lane:
 
     laneTypes = [
         "none",
+        "curb",
         "driving",
         "stop",
         "shoulder",
