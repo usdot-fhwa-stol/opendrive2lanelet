@@ -42,30 +42,6 @@ __maintainer__ = "Benjamin Orthen"
 __email__ = "commonroad-i06@in.tum.de"
 __status__ = "Released"
 
-SUPPORTED_LANE_TYPES = [
-    "none",
-    "curb",
-    "driving",
-    "stop",
-    "shoulder",
-    "biking",
-    "sidewalk",
-    "border",
-    "restricted",
-    "parking",
-    "bidirectional",
-    "median",
-    "special1",
-    "special2",
-    "special3",
-    "roadWorks",
-    "tram",
-    "rail",
-    "entry",
-    "exit",
-    "offRamp",
-    "onRamp",
-    ]
 
 def parse_opendrive(root_node) -> OpenDrive:
     """Tries to parse XML tree, returns OpenDRIVE object
@@ -369,11 +345,6 @@ def parse_opendrive_road_lane_section(newRoad, lane_section_id, lane_section):
             )
             new_lane.id = lane.get("id")
             new_lane.type = lane.get("type")
-
-            SUPPORTED_LANE_TYPES = ["none", "driving", "shoulder", "parking", "sidewalk", "border"]
-            if new_lane.type not in SUPPORTED_LANE_TYPES:
-
-                continue
 
             # In some sample files the level is not specified according to the OpenDRIVE spec
             new_lane.level = (
