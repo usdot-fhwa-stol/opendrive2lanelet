@@ -193,7 +193,7 @@ class ParametricLane:
 
         """
 
-        num_steps = int(max(3, np.ceil(self.length / float(precision))))
+        num_steps = int(0.05 * max(3, np.ceil(self.length / float(precision)))) # Modified
 
         poses = np.linspace(0, self.length, num_steps)
 
@@ -286,7 +286,7 @@ class ParametricLane:
 
         """
 
-        num_steps = int(max(3, np.ceil(self.length / float(precision))))
+        num_steps = int(0.05 * max(3, np.ceil(self.length / float(precision)))) # Modified
 
         poses = np.linspace(0, self.length, num_steps)
 
